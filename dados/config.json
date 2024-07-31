@@ -1,0 +1,85 @@
+{
+  "tipo_atend": [
+    "tipo de atendimento",
+    "tipo atendimento",
+    "cod_tipo_conta_sus"
+  ],
+  "comp": ["competência do atendimento", "competência", "dat_competencia"],
+  "num_atend": [
+    "num_conta_sus",
+    "número aih/apac",
+    "número aih",
+    "número do atendimento"
+  ],
+  "tipo_contrat": ["cod_tipo_contratac", "tipo do plano", "tipo contrato"],
+  "status": ["status final", "status impugnação", "status impugnação final"],
+  "ilegalidades": ["ilegalidades"],
+  "tipo_contratos": {
+    "colem/colad": [
+      "colem",
+      "colad",
+      "coletivo por adesão",
+      "coletivo empresarial",
+      "coletivo empresarial - plano prorrogação",
+      "coletivo empresarial com patrocínio",
+      "coletivo adesão com patrocínio"
+    ],
+    "indiv": ["indiv", "individual/familiar", "individual especial (ans)"]
+  },
+  "nome_procedimento": {
+    "especial": [
+      "DIÁLISE",
+      "TERAPIA",
+      "FACOEMU",
+      "EVOCADO",
+      "DIALISE",
+      "CATETERISMO",
+      "FOTOCOAGULACAO",
+      "FACECTOMIA",
+      "VASECTOMIA",
+      "TRATAMENTO MEDICAMENTOSO DE DOENÇA DA RETINA",
+      "FOTOCOAGULAÇÃO",
+      "TOMOGRAFIA DE COERÊNCIA ÓPTICA",
+      "TREINAMENTO DE PACIENTE"
+    ],
+    "consulta": ["ACOMPANHAMENTO", "AVALIAÇÃO", "AVALIACAO"],
+    "ambulatorial": ["TRANSPLANTE DE CORNEA", "RETIRADA DE CATETER", "CURATIVO EM MÉDIDO QUEIMADO"]
+  },
+  "lista_num_atend": ["Número AIH/APAC", "NUM_CONTA_SUS", "Número AIH", "Número do Atendimento", "numero"],
+  "lista_competencia": ["Competência", "DAT_COMPETENCIA", "Competência do Atendimento", "competencia"],
+  "lista_tipo_procedimento": ["Tipo Procedimento", "DSC_TIPO_SERVICO_SUS", "Tipo do Procedimento", "tipoProcedimento"],
+  "lista_valor_tipo_procedimento": ["P - Principal", "PRINCIPAL", "P", "p"],
+  "lista_procedimento": ["Nome Procedimento", "Descrição do Procedimento", "DSC_SERVICO_SUS"],
+  "lista_quantidade": ["Quantidade", "Quantidade do Procedimento", "QTD_SERVICO"],
+  "lista_total": ["Valor Total Procedimento", "Valor do Procedimento", "VLR_SERVICO"],
+  "lista_copart": ["VALOR DA COPART", "VALOR"],
+  "lista_copart_sec": ["VALOR DA COPART\nSECUNDÁRIO", "VALOR DA COPART\n SECUNDÁRIO", "VALOR SECUNDÁRIO"],
+  "lista_alegacao_decisao": [
+    "ALEGAÇÃO: BENEFICIÁRIO EM CARÊNCIA",
+    "ALEGAÇÃO: CARÊNCIA",
+    "ALEGAÇÃO: BENEFICIÁRIO EXCLUÍDO",
+    "ALEGAÇÃO: BENEFICIÁRIO EXCLUÍDO ANTES DO ATENDIMENTO",
+    "ALEGAÇÃO: PROCEDIMENTO NÃO COBERTO",
+    "ALEGAÇÃO DE NATUREZA TÉCNICA - NEGATIVA DE ACESSO AO PRONTUÁRIO",
+    "ALEGAÇÃO DE NATUREZA TÉCNICA - NÃO CUMPRIMENTO DAS NORMAS ADMINISTRATIVAS DO SUS/IRREGULARIDADE NO PREENCHIMENTO DO PRONTUÁRIO",
+    "OFÍCIO CIRCULAR Nº 02/2017/DIDES",
+    "ALEGAÇÃO: ATENDIMENTO FORA DA ABRANGÊNCIA GEOGRÁFICA DO CONTRATO",
+    "ALEGAÇÃO: COBERTURA PARCIAL TEMPORÁRIA",
+    "ALEGAÇÃO: FRANQUIA OU COPARTICIPAÇÃO",
+    "ALEGAÇÃO: PÓS-PAGAMENTO",
+    "ALEGAÇÃO: ABRANGÊNCIA GEOGRÁFICA",
+    "ALEGAÇÃO: QUANTIDADE DO PROCEDIMENTO NÃO COBERTA PELO CONTRATO"
+  ],
+  "lista_opiniao_decisao": [
+    "INDEFERIMENTO",
+    "ANULAÇÃO DA IDENTIFICAÇÃO",
+    "Deferimento e anulação do valor",
+    "Deferimento e redução do valor",
+    "Indeferimento e manutenção do valor",
+    "Manutenção da Decisão de 1ª instância",
+    "Reconsideração: deferimento e anulação de valor",
+    "Reconsideração: deferimento e redução do valor da 1ª instância",
+    "Reconsideração: indeferimento e redução do valor da 1ª instância",
+    "Indeferimento e redução do valor"
+  ]
+}
