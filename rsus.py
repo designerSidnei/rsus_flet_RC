@@ -107,54 +107,39 @@ class SideBar(Row):
         )
         return self.view
 
+    def set_app_main_bar_pages(self, index):
+        pages_list = [
+            self.main_page,
+            self.dicision,
+            self.rename,
+            self.memo,
+            self.other,
+            self.settings,
+            self.info,
+        ]
+        for page in pages_list:
+            page.visible = False
+        pages_list[index].visible = True
+
     def mudar_pagina(self, e):
-        index = e if (isinstance(type(e), int)) else e.control.selected_index
+        index = e if isinstance(e, int) else e.control.selected_index
         self.view.update()
+
         if index == 0:
             self.page.appbar.title = Text("Página inicial")
-            self.main_page.visible = True
-            self.dicision.visible = False
-            self.rename.visible = False
-            self.memo.visible = False
-            self.other.visible = False
-            self.settings.visible = False
-            self.info.visible = False
+            self.set_app_main_bar_pages(index)
         elif index == 1:
             self.page.appbar.title = Text("Decisão")
-            self.main_page.visible = False
-            self.dicision.visible = True
-            self.rename.visible = False
-            self.memo.visible = False
-            self.other.visible = False
-            self.settings.visible = False
-            self.info.visible = False
+            self.set_app_main_bar_pages(index)
         elif index == 2:
             self.page.appbar.title = Text("Renomear")
-            self.main_page.visible = False
-            self.dicision.visible = False
-            self.rename.visible = True
-            self.memo.visible = False
-            self.other.visible = False
-            self.settings.visible = False
-            self.info.visible = False
+            self.set_app_main_bar_pages(index)
         elif index == 3:
             self.page.appbar.title = Text("Memória de cálculo")
-            self.main_page.visible = False
-            self.dicision.visible = False
-            self.rename.visible = False
-            self.memo.visible = True
-            self.other.visible = False
-            self.settings.visible = False
-            self.info.visible = False
+            self.set_app_main_bar_pages(index)
         elif index == 4:
             self.page.appbar.title = Text("Outras opções")
-            self.main_page.visible = False
-            self.dicision.visible = False
-            self.rename.visible = False
-            self.memo.visible = False
-            self.other.visible = True
-            self.settings.visible = False
-            self.info.visible = False
+            self.set_app_main_bar_pages(index)
         self.page.update()
 
 

@@ -22,6 +22,7 @@ import pyperclip as pc
 from components.buttons import Buttons
 from components.text_fields import CustomTextField
 
+
 class Batimento(Row):
     def __init__(self, page: Page):
         super().__init__()
@@ -53,7 +54,7 @@ class Batimento(Row):
                 alignment="center",
                 controls=[
                     self.plan_text_field,
-                    Column(controls=[self.plan_button, ElevatedButton("Run", width=140, on_click=lambda _: self.list_dict(self.plan_button.path_name))]),
+                    Column(controls=[self.plan_button, ElevatedButton("Executar", icons.RUN_CIRCLE_OUTLINED, width=140, on_click=lambda _: self.list_dict(self.plan_button.path_name))]),
                 ],
             ),
         )
