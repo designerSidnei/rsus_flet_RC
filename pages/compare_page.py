@@ -13,7 +13,7 @@ from flet import (
     Text,
     AlertDialog,
     TextButton,
-    MainAxisAlignment
+    MainAxisAlignment,
 )
 
 import pandas as pd
@@ -29,7 +29,9 @@ class Batimento(Row):
         self.page = page
 
         self.plan_text_field = CustomTextField("Planilha para batimento")
-        self.plan_button = Buttons("Buscar", icons.SEARCH, self.plan_text_field, ["xlsx"])
+        self.plan_button = Buttons(
+            "Buscar", icons.SEARCH, self.plan_text_field, ["xlsx"]
+        )
 
         self.dlg = AlertDialog(
             modal=True,
@@ -54,7 +56,19 @@ class Batimento(Row):
                 alignment="center",
                 controls=[
                     self.plan_text_field,
-                    Column(controls=[self.plan_button, ElevatedButton("Executar", icons.RUN_CIRCLE_OUTLINED, width=140, on_click=lambda _: self.list_dict(self.plan_button.path_name))]),
+                    Column(
+                        controls=[
+                            self.plan_button,
+                            ElevatedButton(
+                                "Executar",
+                                icons.RUN_CIRCLE_OUTLINED,
+                                width=140,
+                                on_click=lambda _: self.list_dict(
+                                    self.plan_button.path_name
+                                ),
+                            ),
+                        ]
+                    ),
                 ],
             ),
         )
@@ -83,11 +97,10 @@ class Batimento(Row):
             ),
         )
 
-
     def close_dlg(self, e):
         self.dlg.open = False
         self.page.update()
-    
+
     def tit(self, texto):
         return DataColumn(Text(texto))
 
@@ -115,22 +128,30 @@ class Batimento(Row):
 
         # Verifica e retorna os valores que tem em uma lista e não tem na outra
         def nao_tem_na_lista(lista_um, lista_dois):
-            nao_tem_na_lista_dois = [str(lista_um[n]) for n in range(0, len(lista_um)) if lista_um[n] not in lista_dois]
+            nao_tem_na_lista_dois = [
+                str(lista_um[n])
+                for n in range(0, len(lista_um))
+                if lista_um[n] not in lista_dois
+            ]
             return nao_tem_na_lista_dois
 
         primeira_lista = nao_tem_na_lista(lista_a, lista_b)
         segunda_lista = nao_tem_na_lista(lista_b, lista_a)
-        terceira_lista = primeira_lista + segunda_lista  # Junta os valores que não tem nas listas
+        # Junta os valores que não tem nas listas
+        terceira_lista = primeira_lista + segunda_lista
 
         len_lista = max(len(lista_a), len(lista_b), len(terceira_lista))
-        
-        
+
         for l in range(len_lista):
-            lista_ = [lista_a[l] if l < len(lista_a) else "", lista_b[l] if l < len(lista_b) else "", terceira_lista[l] if l < len(terceira_lista) else ""]
+            lista_ = [
+                lista_a[l] if l < len(lista_a) else "",
+                lista_b[l] if l < len(lista_b) else "",
+                terceira_lista[l] if l < len(terceira_lista) else "",
+            ]
             matriz.append(lista_)
 
         # Copia os valores que não batem para o clipboard
-        pc.copy('\n'.join(terceira_lista))
+        pc.copy("\n".join(terceira_lista))
 
         self.body = self.cel(matriz)
         self.dt_table.rows = self.body
@@ -139,6 +160,8 @@ class Batimento(Row):
         self.page.dialog = self.dlg
         self.dlg.open = True
         self.dlg.title = Text("Info:")
-        self.dlg.content = Text("O resultado da operação foi copiado para a área de transferência.")
+        self.dlg.content = Text(
+            "O resultado da operação foi copiado para a área de transferência."
+        )
 
         self.page.update()

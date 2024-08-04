@@ -1,6 +1,16 @@
 from flet import (
-    Page, Container, Row, Column, MainAxisAlignment, alignment, icons,
-    ElevatedButton, AlertDialog, Text, TextButton, ProgressBar
+    Page,
+    Container,
+    Row,
+    Column,
+    MainAxisAlignment,
+    alignment,
+    icons,
+    ElevatedButton,
+    AlertDialog,
+    Text,
+    TextButton,
+    ProgressBar,
 )
 
 from components.buttons import Buttons
@@ -31,9 +41,11 @@ class AbrirPasta(Row):
         self.plan_path = Container(
             expand=1,
             alignment=alignment.center,
-            content=Row(expand=True, alignment=MainAxisAlignment.CENTER,
-                        controls=[self.plan,
-                                  self.plan_button])
+            content=Row(
+                expand=True,
+                alignment=MainAxisAlignment.CENTER,
+                controls=[self.plan, self.plan_button],
+            ),
         )
 
     def build(self):
@@ -46,14 +58,26 @@ class AbrirPasta(Row):
                     expand=True,
                     alignment="center",
                     spacing=0,
-                    controls=[self.plan_path,
-                              Row(expand=1, alignment=MainAxisAlignment.CENTER,
-                                  controls=[
-                                      ElevatedButton("Executar", icons.RUN_CIRCLE, width=140, height=50,
-                                                     on_click=lambda _: asyncio.run(self.open_folder(self.plan_button.path_name)))
-                                      ])]
+                    controls=[
+                        self.plan_path,
+                        Row(
+                            expand=1,
+                            alignment=MainAxisAlignment.CENTER,
+                            controls=[
+                                ElevatedButton(
+                                    "Executar",
+                                    icons.RUN_CIRCLE,
+                                    width=140,
+                                    height=50,
+                                    on_click=lambda _: asyncio.run(
+                                        self.open_folder(self.plan_button.path_name)
+                                    ),
+                                )
+                            ],
+                        ),
+                    ],
                 )
-            )
+            ),
         )
 
     def close_dlg(self, e):
@@ -61,7 +85,6 @@ class AbrirPasta(Row):
         self.page.update()
 
     async def open_folder(self, plan_path):
-
         self.page.dialog = self.dlg
         self.dlg.open = True
         self.page.update()

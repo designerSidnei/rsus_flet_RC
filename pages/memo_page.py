@@ -22,6 +22,7 @@ import asyncio
 
 from modules.memoria_de_calculo import process_rows
 
+
 class Memo(Column):
     def __init__(self, page: Page):
         super().__init__()
@@ -38,16 +39,27 @@ class Memo(Column):
         self.plan = CustomTextField("Planilha com base para memória")
         self.plan_button = Buttons("Buscar", icons.SEARCH, self.plan, ["xlsx"])
 
-        self.plan_path = Container(expand=1,
-                                   alignment=alignment.top_center,
-                                   content=Row(expand=True,
-                                               alignment=MainAxisAlignment.CENTER,
-                                               controls=[self.plan, self.plan_button]))
-        self.do_it_button = Container(expand=1,
-                                      alignment=alignment.top_center,
-                                      content=ElevatedButton("Executar", height=50, width=140,
-                                                             on_click=lambda _: asyncio.run(self.memo(self.plan_button.path_name))))
-        
+        self.plan_path = Container(
+            expand=1,
+            alignment=alignment.top_center,
+            content=Row(
+                expand=True,
+                alignment=MainAxisAlignment.CENTER,
+                controls=[self.plan, self.plan_button],
+            ),
+        )
+        self.do_it_button = Container(
+            expand=1,
+            alignment=alignment.top_center,
+            content=ElevatedButton(
+                "Executar",
+                icons.RUN_CIRCLE,
+                height=50,
+                width=140,
+                on_click=lambda _: asyncio.run(self.memo(self.plan_button.path_name)),
+            ),
+        )
+
     def build(self):
         return Container(
             expand=True,
@@ -56,11 +68,10 @@ class Memo(Column):
                 alignment="center",
                 spacing=0,
                 horizontal_alignment=CrossAxisAlignment.CENTER,
-                controls=[self.plan_path,
-                          self.do_it_button]
-            )
+                controls=[self.plan_path, self.do_it_button],
+            ),
         )
-    
+
     async def memo(self, planilha_path):
         self.page.dialog = self.dlg
         self.dlg.open = True

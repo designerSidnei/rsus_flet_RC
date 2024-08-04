@@ -1,11 +1,13 @@
 from flet import (
     Page,
     Row,
-    Tabs, Tab,
+    Tabs,
+    Tab,
 )
 from pages.compare_page import Batimento
 from pages.open_folder_page import AbrirPasta
 from pages.move_pdf_page import MoverPDF
+
 
 class Outros(Row):
     def __init__(self, page: Page):
@@ -19,9 +21,8 @@ class Outros(Row):
         self.tab = Tabs(
             tabs=[self.compare_page, self.open_page, self.move_pdf_page],
             selected_index=0,
-            width=self.page.window_width - 130
+            width=self.page.window_width - 130,
         )
-    
+
     def build(self):
         return self.tab
-    

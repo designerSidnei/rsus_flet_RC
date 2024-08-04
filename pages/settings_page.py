@@ -15,7 +15,6 @@ from flet import (
     Page,
     Column,
     Container,
-    alignment,
     colors,
     dropdown,
 )
@@ -127,19 +126,22 @@ class Config(Column):
                     config["nome_procedimento"][self.choose_group.value].append(
                         self.campo_nome_procedimento.value
                     )
-                    msg = f"{self.campo_nome_procedimento.value} adicionado a 'Nome do procedimento'."
+                    msg = f"{
+                        self.campo_nome_procedimento.value} adicionado a 'Nome do procedimento'."
                 except KeyError:
                     msg = "Nenhuma das opções marcadas. Selecione uma opção."
             elif self.choose_plan_data.value == "Alegação (Decisão)":
                 config["lista_alegacao_decisao"].append(
                     self.campo_nome_procedimento.value
                 )
-                msg = f"{self.campo_nome_procedimento.value} adicionado a 'Alegalção'."
+                msg = f"{
+                    self.campo_nome_procedimento.value} adicionado a 'Alegalção'."
             elif self.choose_plan_data.value == "Opinião (Decisão)":
                 config["lista_opiniao_decisao"].append(
                     self.campo_nome_procedimento.value
                 )
-                msg = f"{self.campo_nome_procedimento.value} adicionado a 'Opinião'."
+                msg = f"{
+                    self.campo_nome_procedimento.value} adicionado a 'Opinião'."
             with open("./dados/config.json", "w", encoding="utf-8") as j:
                 json.dump(config, j, indent=2, ensure_ascii=False)
 
