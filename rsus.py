@@ -1,6 +1,8 @@
 from flet import (
     Page,
     app,
+    Theme,
+    ColorScheme,
     AppBar,
     NavigationRailDestination,
     NavigationRailLabelType,
@@ -151,6 +153,12 @@ def main(page: Page):
     page.window.resizable = False
     page.window.center()
     page.padding = 0
+    page.bgcolor = colors.BLUE_GREY_900
+
+    page.theme = Theme(color_scheme=ColorScheme(
+        primary=colors.BLUE_400,
+        secondary_container=colors.BLUE_400,
+    ))
 
     main_page = MainPage()
     decision_page = Decisao(page)
