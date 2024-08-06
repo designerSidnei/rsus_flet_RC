@@ -1,3 +1,4 @@
+import json
 from flet import (
     Page,
     app,
@@ -8,12 +9,15 @@ from flet import (
     NavigationRailLabelType,
     NavigationRail,
     Text,
+    TextField,
+    ElevatedButton,
     Container,
     Column,
     Row,
     MainAxisAlignment,
     CrossAxisAlignment,
     IconButton,
+    AlertDialog,
     margin,
     padding,
     icons,
@@ -28,7 +32,9 @@ from pages.others_page import Outros
 from pages.settings_page import Config
 from pages.info_page import Info
 
+from modules.load_config import config_read
 
+config = config_read()
 class SideBar(Row):
     def __init__(
         self,
@@ -160,7 +166,7 @@ def main(page: Page):
         secondary_container=colors.BLUE_400,
     ))
 
-    main_page = MainPage()
+    main_page = MainPage(page)
     decision_page = Decisao(page)
     rename_page = Rename(page)
     memo_page = Memo(page)
@@ -209,6 +215,29 @@ def main(page: Page):
         page.update()
         sidebar.view.update()
 
+    def join_click(e):
+        new_config = {}
+        with open("./dados/config.json", "r", encoding="utf-8") as j:
+            new_config = json.load(j)
+
+        new_config["usuario"] = user_name.value 
+
+        with open("./dados/config.json", "w", encoding="utf-8") as j:
+            json.dump(new_config, j, indent=2, ensure_ascii=False)
+        
+        page.update()
+        page.dialog.open = False
+
+    user_name = TextField(label="Digite seu nome de usuário")
+    if config["usuario"] == "":
+        page.dialog = AlertDialog(
+            modal=True,
+            open=True,
+            title=Text("Novo usuário"),
+            content=Column([user_name], tight=True),
+            actions=[ElevatedButton(text="Confirmar", on_click=join_click)],
+        )
+    
     app_win = Row(
         spacing=0,
         controls=[

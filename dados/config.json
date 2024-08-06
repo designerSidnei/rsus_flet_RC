@@ -4,16 +4,30 @@
     "tipo atendimento",
     "cod_tipo_conta_sus"
   ],
-  "comp": ["competência do atendimento", "competência", "dat_competencia"],
+  "comp": [
+    "competência do atendimento",
+    "competência",
+    "dat_competencia"
+  ],
   "num_atend": [
     "num_conta_sus",
     "número aih/apac",
     "número aih",
     "número do atendimento"
   ],
-  "tipo_contrat": ["cod_tipo_contratac", "tipo do plano", "tipo contrato"],
-  "status": ["status final", "status impugnação", "status impugnação final"],
-  "ilegalidades": ["ilegalidades"],
+  "tipo_contrat": [
+    "cod_tipo_contratac",
+    "tipo do plano",
+    "tipo contrato"
+  ],
+  "status": [
+    "status final",
+    "status impugnação",
+    "status impugnação final"
+  ],
+  "ilegalidades": [
+    "ilegalidades"
+  ],
   "tipo_contratos": {
     "colem/colad": [
       "colem",
@@ -24,7 +38,11 @@
       "coletivo empresarial com patrocínio",
       "coletivo adesão com patrocínio"
     ],
-    "indiv": ["indiv", "individual/familiar", "individual especial (ans)"]
+    "indiv": [
+      "indiv",
+      "individual/familiar",
+      "individual especial (ans)"
+    ]
   },
   "nome_procedimento": {
     "especial": [
@@ -42,18 +60,66 @@
       "TOMOGRAFIA DE COERÊNCIA ÓPTICA",
       "TREINAMENTO DE PACIENTE"
     ],
-    "consulta": ["ACOMPANHAMENTO", "AVALIAÇÃO", "AVALIACAO"],
-    "ambulatorial": ["TRANSPLANTE DE CORNEA", "RETIRADA DE CATETER", "CURATIVO EM MÉDIDO QUEIMADO"]
+    "consulta": [
+      "ACOMPANHAMENTO",
+      "AVALIAÇÃO",
+      "AVALIACAO"
+    ],
+    "ambulatorial": [
+      "TRANSPLANTE DE CORNEA",
+      "RETIRADA DE CATETER",
+      "CURATIVO EM MÉDIDO QUEIMADO"
+    ]
   },
-  "lista_num_atend": ["Número AIH/APAC", "NUM_CONTA_SUS", "Número AIH", "Número do Atendimento", "numero"],
-  "lista_competencia": ["Competência", "DAT_COMPETENCIA", "Competência do Atendimento", "competencia"],
-  "lista_tipo_procedimento": ["Tipo Procedimento", "DSC_TIPO_SERVICO_SUS", "Tipo do Procedimento", "tipoProcedimento"],
-  "lista_valor_tipo_procedimento": ["P - Principal", "PRINCIPAL", "P", "p"],
-  "lista_procedimento": ["Nome Procedimento", "Descrição do Procedimento", "DSC_SERVICO_SUS"],
-  "lista_quantidade": ["Quantidade", "Quantidade do Procedimento", "QTD_SERVICO"],
-  "lista_total": ["Valor Total Procedimento", "Valor do Procedimento", "VLR_SERVICO"],
-  "lista_copart": ["VALOR DA COPART", "VALOR"],
-  "lista_copart_sec": ["VALOR DA COPART\nSECUNDÁRIO", "VALOR DA COPART\n SECUNDÁRIO", "VALOR SECUNDÁRIO"],
+  "lista_num_atend": [
+    "Número AIH/APAC",
+    "NUM_CONTA_SUS",
+    "Número AIH",
+    "Número do Atendimento",
+    "numero"
+  ],
+  "lista_competencia": [
+    "Competência",
+    "DAT_COMPETENCIA",
+    "Competência do Atendimento",
+    "competencia"
+  ],
+  "lista_tipo_procedimento": [
+    "Tipo Procedimento",
+    "DSC_TIPO_SERVICO_SUS",
+    "Tipo do Procedimento",
+    "tipoProcedimento"
+  ],
+  "lista_valor_tipo_procedimento": [
+    "P - Principal",
+    "PRINCIPAL",
+    "P",
+    "p"
+  ],
+  "lista_procedimento": [
+    "Nome Procedimento",
+    "Descrição do Procedimento",
+    "DSC_SERVICO_SUS"
+  ],
+  "lista_quantidade": [
+    "Quantidade",
+    "Quantidade do Procedimento",
+    "QTD_SERVICO"
+  ],
+  "lista_total": [
+    "Valor Total Procedimento",
+    "Valor do Procedimento",
+    "VLR_SERVICO"
+  ],
+  "lista_copart": [
+    "VALOR DA COPART",
+    "VALOR"
+  ],
+  "lista_copart_sec": [
+    "VALOR DA COPART\nSECUNDÁRIO",
+    "VALOR DA COPART\n SECUNDÁRIO",
+    "VALOR SECUNDÁRIO"
+  ],
   "lista_alegacao_decisao": [
     "ALEGAÇÃO: BENEFICIÁRIO EM CARÊNCIA",
     "ALEGAÇÃO: CARÊNCIA",
@@ -81,5 +147,6 @@
     "Reconsideração: deferimento e redução do valor da 1ª instância",
     "Reconsideração: indeferimento e redução do valor da 1ª instância",
     "Indeferimento e redução do valor"
-  ]
+  ],
+  "usuario": ""
 }
