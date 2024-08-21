@@ -1,4 +1,4 @@
-#!C:\Users\sidne\OneDrive - 5yyfnt\Documentos\Programing\rsus_flet_RC\venv\Scripts\python.exe
+#!C:\Users\sidne\OneDrive - 5yyfnt\Documentos\Programing\rsus_flet\venv\Scripts\python.exe
 """A command line tool for extracting text and images from PDF and
 output it to plain text, html, xml or tags."""
 import argparse

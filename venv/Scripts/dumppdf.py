@@ -1,4 +1,4 @@
-#!C:\Users\sidne\OneDrive - 5yyfnt\Documentos\Programing\rsus_flet_RC\venv\Scripts\python.exe
+#!C:\Users\sidne\OneDrive - 5yyfnt\Documentos\Programing\rsus_flet\venv\Scripts\python.exe
 """Extract pdf structure in XML format"""
 import logging
 import os.path
