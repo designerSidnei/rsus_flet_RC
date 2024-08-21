@@ -108,7 +108,7 @@ class SideBar(Row):
         return self.view
 
     def mudar_pagina(self, e):
-        index = e if (type(e) == int) else e.control.selected_index
+        index = e if (isinstance(type(e), int)) else e.control.selected_index
         self.view.update()
         if index == 0:
             self.page.appbar.title = Text("Página inicial")
