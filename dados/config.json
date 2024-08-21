@@ -13,7 +13,8 @@
     "num_conta_sus",
     "número aih/apac",
     "número aih",
-    "número do atendimento"
+    "número do atendimento",
+    "numero atendimento"
   ],
   "tipo_contrat": [
     "cod_tipo_contratac",
@@ -28,6 +29,22 @@
   "ilegalidades": [
     "ilegalidades"
   ],
+<<<<<<< HEAD
+  "tipo_contrat": [
+    "cod_tipo_contratac",
+    "tipo do plano",
+    "tipo contrato"
+  ],
+  "status": [
+    "status final",
+    "status impugnação",
+    "status impugnação final"
+  ],
+  "ilegalidades": [
+    "ilegalidades"
+  ],
+=======
+>>>>>>> c34ca4e02cc9b81b9685c42d672524e12911ccd3
   "tipo_contratos": {
     "colem/colad": [
       "colem",
@@ -76,7 +93,12 @@
     "NUM_CONTA_SUS",
     "Número AIH",
     "Número do Atendimento",
+<<<<<<< HEAD
     "numero"
+=======
+    "numero",
+    "NUMERO ATENDIMENTO"
+>>>>>>> c34ca4e02cc9b81b9685c42d672524e12911ccd3
   ],
   "lista_competencia": [
     "Competência",
@@ -134,7 +156,8 @@
     "ALEGAÇÃO: FRANQUIA OU COPARTICIPAÇÃO",
     "ALEGAÇÃO: PÓS-PAGAMENTO",
     "ALEGAÇÃO: ABRANGÊNCIA GEOGRÁFICA",
-    "ALEGAÇÃO: QUANTIDADE DO PROCEDIMENTO NÃO COBERTA PELO CONTRATO"
+    "ALEGAÇÃO: QUANTIDADE DO PROCEDIMENTO NÃO COBERTA PELO CONTRATO",
+    "ALEGAÇÃO DE NATUREZA TÉCNICA"
   ],
   "lista_opiniao_decisao": [
     "INDEFERIMENTO",
@@ -147,6 +170,10 @@
     "Reconsideração: deferimento e redução do valor da 1ª instância",
     "Reconsideração: indeferimento e redução do valor da 1ª instância",
     "Indeferimento e redução do valor"
+<<<<<<< HEAD
   ],
   "usuario": ""
+=======
+  ]
+>>>>>>> c34ca4e02cc9b81b9685c42d672524e12911ccd3
 }
