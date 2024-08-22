@@ -1,3 +1,3 @@
 # Ignora a pasta venv
-venv
-*_pycache_
+/venv/
+/*_pycache_/
