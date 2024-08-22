@@ -55,7 +55,7 @@ class Config(Column):
         )
 
         self.campo_nome_procedimento = TextField()
-        self.button_send = ElevatedButton("Enviar", on_click=self.submit)
+        self.button_send = ElevatedButton("Incluir", on_click=self.submit)
 
         self.coluna_submit = Column(
             visible=False,
@@ -73,10 +73,18 @@ class Config(Column):
             self.coluna_submit,
         ]
 
-        self.expansion_panel = ExpansionTile(
+        self.expansion_panel_plan_data = ExpansionTile(
             title=Text("Acrescentar dados de planilha"),
             subtitle=Text("Selecione as opções"),
             controls=self.list_coluna,
+            collapsed_bgcolor=colors.GREY_800,
+            controls_padding=20,
+        )
+
+        self.expansion_panel_user_config = ExpansionTile(
+            title=Text("Configuração de usuário"),
+            subtitle=Text("Resetar usuário"),
+            controls=[TextButton("Resetar usuário", on_click=self.user_reset)],
             collapsed_bgcolor=colors.GREY_800,
             controls_padding=20,
         )
@@ -88,10 +96,12 @@ class Config(Column):
             # alignment=alignment.top_center,
             content=Column(
                 controls=[
-                    self.expansion_panel,
+                    self.expansion_panel_plan_data,
+                    self.expansion_panel_user_config,
                 ],
                 expand=True,
                 alignment=MainAxisAlignment.START,
+                spacing=5,
             ),
         )
 
@@ -110,7 +120,7 @@ class Config(Column):
             self.campo_nome_procedimento.hint_text = "Opinião da decisão"
         else:
             self.coluna_submit.visible = False
-        self.expansion_panel.update()
+        self.expansion_panel_plan_data.update()
         self.page.update()
 
     def submit(self, e):
@@ -146,12 +156,30 @@ class Config(Column):
                 json.dump(config, j, indent=2, ensure_ascii=False)
 
             self.campo_nome_procedimento.value = ""
-            self.expansion_panel.update()
+            self.expansion_panel_plan_data.update()
         else:
             msg = "Campo vazio! Digite um valor."
 
         self.dlg.title = Text("Concluído")
         self.dlg.content = Text(msg)
+        self.page.dialog = self.dlg
+        self.dlg.open = True
+        self.page.update()
+
+    
+    
+    def user_reset(self, e):
+        config = {}
+
+        with open("./dados/config.json", "r", encoding="utf-8") as j:
+            config = json.load(j)
+        config["usuario"] = ""
+
+        with open("./dados/config.json", "w", encoding="utf-8") as j:
+            json.dump(config, j, indent=2, ensure_ascii=False)
+
+        self.dlg.title = Text("Concluído")
+        self.dlg.content = Text("Usuário resetado. Reinicie o programa para configurar um novo usuário.")
         self.page.dialog = self.dlg
         self.dlg.open = True
         self.page.update()

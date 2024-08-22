@@ -35,6 +35,8 @@ from pages.info_page import Info
 from modules.load_config import config_read
 
 config = config_read()
+
+
 class SideBar(Row):
     def __init__(
         self,
@@ -179,9 +181,11 @@ def main(page: Page):
         center_title=True,
         bgcolor=colors.BLACK26,
         actions=[
-            IconButton(icons.INFO, on_click=lambda _: set_app_bar_pages(info_page)),
             IconButton(
-                icons.SETTINGS, on_click=lambda _: set_app_bar_pages(settings_page)
+                icons.INFO, on_click=lambda _: set_app_bar_pages(info_page)),
+            IconButton(
+                icons.SETTINGS, on_click=lambda _: set_app_bar_pages(
+                    settings_page)
             ),
         ],
     )
@@ -215,29 +219,33 @@ def main(page: Page):
         page.update()
         sidebar.view.update()
 
+    
+
     def join_click(e):
         new_config = {}
         with open("./dados/config.json", "r", encoding="utf-8") as j:
             new_config = json.load(j)
-
-        new_config["usuario"] = user_name.value 
+            new_config["usuario"] = user_name.value
 
         with open("./dados/config.json", "w", encoding="utf-8") as j:
             json.dump(new_config, j, indent=2, ensure_ascii=False)
-        
+
+        name_dialog.open = False
+        main_page.updater()
         page.update()
-        page.dialog.open = False
 
     user_name = TextField(label="Digite seu nome de usuário")
+    name_dialog = AlertDialog(
+        modal=True,
+        open=True,
+        title=Text("Novo usuário"),
+        content=Column([user_name], tight=True),
+        actions=[ElevatedButton(text="Confirmar", on_click=join_click)],
+    )
+
     if config["usuario"] == "":
-        page.dialog = AlertDialog(
-            modal=True,
-            open=True,
-            title=Text("Novo usuário"),
-            content=Column([user_name], tight=True),
-            actions=[ElevatedButton(text="Confirmar", on_click=join_click)],
-        )
-    
+        page.overlay.append(name_dialog)
+
     app_win = Row(
         spacing=0,
         controls=[
