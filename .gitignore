@@ -1,3 +1,4 @@
 # Ignora a pasta venv
 /venv/
 /*_pycache_/
+/.mypy_cache/
