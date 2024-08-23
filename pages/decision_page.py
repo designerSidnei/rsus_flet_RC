@@ -25,14 +25,6 @@ class Decisao(Row):
         super().__init__()
         self.page = page
         self.progress_bar = ProgressBar()
-        self.dlg = AlertDialog(
-            modal=True,
-            title=Text("Aguarde..."),
-            content=self.progress_bar,
-            actions=[TextButton("OK", on_click=self.close_dlg)],
-            actions_alignment=MainAxisAlignment.CENTER,
-        )
-        self.result = None
         self.planilha = CustomTextField("Planilha da decisão")
         self.dados = CustomTextField("Nota técnica")
         self.plan_path = None
@@ -70,24 +62,29 @@ class Decisao(Row):
             horizontal_alignment=CrossAxisAlignment.CENTER,
         )
 
-    def close_dlg(self, e):
-        self.dlg.open = False
+    def close_dlg(self, dlg):
+        dlg.open = False
         self.page.update()
 
     async def passar_decisao(self, plan_path, plan_dados):
         self.plan_path = plan_path
         self.plan_dados = plan_dados
 
-        self.page.dialog = self.dlg
-        self.dlg.open = True
+        dlg = AlertDialog(
+            modal=True,
+            title=Text("Aguarde..."),
+            content=self.progress_bar,
+            actions=[TextButton("OK", on_click=lambda _: self.close_dlg(dlg))],
+            actions_alignment=MainAxisAlignment.CENTER,
+        )
+        self.page.dialog.overlay.append(dlg)
+        dlg.open = True
         self.page.update()
 
         decision = asyncio.create_task(mainn(self.plan_path, self.plan_dados))
-        result = (
-            await decision
-        )  # quando é retornado algum valor é obrigatório o uso de 'await'
+        result = await decision # quando é retornado algum valor é obrigatório o uso de 'await'
 
         if result:
-            self.dlg.title = Text("Resultado:")
-            self.dlg.content = Text(result)
+            dlg.title = Text("Resultado:")
+            dlg.content = Text(result)
             self.page.update()

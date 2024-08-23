@@ -29,13 +29,7 @@ class MoverPDF(Row):
         self.page = page
 
         self.progress_bar = ProgressBar()
-        self.dlg = AlertDialog(
-            modal=True,
-            title=Text("Aguarde..."),
-            content=self.progress_bar,
-            actions=[TextButton("OK", on_click=self.close_dlg)],
-            actions_alignment=MainAxisAlignment.CENTER,
-        )
+        
 
         self.sorce_dir = CustomTextField("Diretório de origem")
         self.target_dir = CustomTextField("Diretório de destino")
@@ -104,8 +98,15 @@ class MoverPDF(Row):
         self.page.update()
 
     async def move_pdfs(self, source_dir, target_dir):
-        self.page.dialog = self.dlg
-        self.dlg.open = True
+        dlg = AlertDialog(
+            modal=True,
+            title=Text("Aguarde..."),
+            content=self.progress_bar,
+            actions=[TextButton("OK", on_click=lambda _: self.close_dlg(dlg))],
+            actions_alignment=MainAxisAlignment.CENTER,
+        )
+        self.page.overlay.append(dlg)
+        dlg.open = True
         self.page.update()
 
         source_dir_path = Path(source_dir)
@@ -117,6 +118,6 @@ class MoverPDF(Row):
         result = await move_files
 
         if result:
-            self.dlg.title = Text("Resultado:")
-            self.dlg.content = Text(result)
+            dlg.title = Text("Resultado:")
+            dlg.content = Text(result)
             self.page.update()

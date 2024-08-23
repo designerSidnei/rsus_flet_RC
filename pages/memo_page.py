@@ -29,13 +29,6 @@ class Memo(Column):
         self.page = page
         self.visible = False
         self.progress_bar = ProgressBar()
-        self.dlg = AlertDialog(
-            modal=True,
-            title=Text("Aguarde..."),
-            content=self.progress_bar,
-            actions=[TextButton("OK", on_click=self.close_dlg)],
-            actions_alignment=MainAxisAlignment.CENTER,
-        )
         self.plan = CustomTextField("Planilha com base para memória")
         self.plan_button = Buttons("Buscar", icons.SEARCH, self.plan, ["xlsx"])
 
@@ -73,8 +66,15 @@ class Memo(Column):
         )
 
     async def memo(self, planilha_path):
-        self.page.dialog = self.dlg
-        self.dlg.open = True
+        dlg = AlertDialog(
+            modal=True,
+            title=Text("Aguarde..."),
+            content=self.progress_bar,
+            actions=[TextButton("OK", on_click=lambda _: self.close_dlg(dlg))],
+            actions_alignment=MainAxisAlignment.CENTER,
+        )
+        self.page.overlay.append(dlg)
+        dlg.open = True
         self.page.update()
 
         df = pd.read_excel(planilha_path)
@@ -82,10 +82,10 @@ class Memo(Column):
         result = await memor
 
         if result:
-            self.dlg.title = Text("Resultado:")
-            self.dlg.content = Text(result)
+            dlg.title = Text("Resultado:")
+            dlg.content = Text(result)
             self.page.update()
 
-    def close_dlg(self, e):
-        self.dlg.open = False
+    def close_dlg(self, dlg):
+        dlg.open = False
         self.page.update()

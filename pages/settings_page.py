@@ -102,6 +102,7 @@ class Config(Column):
                 expand=True,
                 alignment=MainAxisAlignment.START,
                 spacing=5,
+                scroll=True,
             ),
         )
 
