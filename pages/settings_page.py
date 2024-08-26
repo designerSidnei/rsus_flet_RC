@@ -18,6 +18,7 @@ from flet import (
     colors,
     dropdown,
 )
+from pathlib import Path
 
 
 class Config(Column):
@@ -25,6 +26,7 @@ class Config(Column):
         super().__init__()
         self.page = page
         self.visible = False
+        self.user_home_path = Path().joinpath(Path().home(), ".rsus/rsus_app_user.json")
         self.dlg = AlertDialog(
             modal=True,
             actions=[TextButton("OK", on_click=self.close_dlg)],
@@ -167,20 +169,19 @@ class Config(Column):
         self.dlg.open = True
         self.page.update()
 
-    
-    
     def user_reset(self, e):
         config = {}
 
-        with open("./dados/config.json", "r", encoding="utf-8") as j:
+        with open(self.user_home_path, "r", encoding="utf-8") as j:
             config = json.load(j)
         config["usuario"] = ""
 
-        with open("./dados/config.json", "w", encoding="utf-8") as j:
+        with open(self.user_home_path, "w", encoding="utf-8") as j:
             json.dump(config, j, indent=2, ensure_ascii=False)
 
         self.dlg.title = Text("Concluído")
-        self.dlg.content = Text("Usuário resetado. Reinicie o programa para configurar um novo usuário.")
+        self.dlg.content = Text(
+            "Usuário resetado. Reinicie o programa para configurar um novo usuário.")
         self.page.dialog = self.dlg
         self.dlg.open = True
         self.page.update()

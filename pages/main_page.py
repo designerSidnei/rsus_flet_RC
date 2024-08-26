@@ -1,40 +1,47 @@
-from flet import Column, Page, Row, Text, CrossAxisAlignment
+from flet import Column, Page, Row, Text, CrossAxisAlignment, Container
 
 from datetime import datetime
-import asyncio
+from pathlib import Path
 
-from modules.load_config import config_read
+import os
+import json
+import asyncio
 
 
 class MainPage(Row):
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
-        self.config = config_read()
         self.user = self.congig_user()
         self.user_text = Text(
             value=self.user,
-            size=25,
+            size=35,
         )
 
         self.past = datetime.now()
-        self.date_now = Text(value=datetime.now().strftime("%d/%m/%Y"), size=20,)
+        self.date_now = Text(
+            value=datetime.now().strftime("%d/%m/%Y"), size=20,)
         self.time_now = Text(size=20,)
+        self.date_time_now = Container(
+            content=Column(
+                expand=True,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                spacing=0,
+                controls=[
+                    self.date_now, self.time_now],
+            ),
+        )
 
     def did_mount(self):
         self.running = True
         self.page.run_task(self.today_datetime)
-
-    # def will_unmount(self):
-    #     self.running = False
 
     def build(self):
         return Column(
             horizontal_alignment=CrossAxisAlignment.CENTER,
             controls=[
                 self.user_text,
-                self.date_now,
-                self.time_now,
+                self.date_time_now,
             ],
         )
 
@@ -53,14 +60,25 @@ class MainPage(Row):
                 print("")
 
     def congig_user(self):
-        user = self.config["usuario"]
+        user_config = {}
+        user_home_path = Path().joinpath(Path().home(), ".rsus")
+        os.makedirs(user_home_path, exist_ok=True)
+        user_new_path = Path().joinpath(user_home_path, "rsus_app_user.json")
+        if not user_new_path.exists():
+            with open(user_new_path, "w", encoding="utf-8") as j:
+                json.dump({"usuario": ""}, j, indent=2, ensure_ascii=False)
+
+        user = ""
+        with open(user_new_path, "r", encoding="utf-8") as j:
+            user_config = json.load(j)
+            user = user_config["usuario"]
+
         if user == "":
             return "Olá, Usuário!\nBem vindo!"
         else:
             return f"Olá, {user}!\nBem vindo!"
 
     def updater(self):
-        self.config = config_read()
         self.user = self.congig_user()
         self.user_text.value = self.user
         self.page.update()

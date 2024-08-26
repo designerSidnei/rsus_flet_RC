@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from flet import (
     Page,
     app,
@@ -32,9 +33,9 @@ from pages.others_page import Outros
 from pages.settings_page import Config
 from pages.info_page import Info
 
-from modules.load_config import config_read
+# from modules.load_config import config_read
 
-config = config_read()
+# config = config_read()
 
 
 class SideBar(Row):
@@ -219,15 +220,16 @@ def main(page: Page):
         page.update()
         sidebar.view.update()
 
-    
+    user_config = Path().joinpath(Path().home(), ".rsus/rsus_app_user.json")
 
     def join_click(e):
+
         new_config = {}
-        with open("./dados/config.json", "r", encoding="utf-8") as j:
+        with open(user_config, "r", encoding="utf-8") as j:
             new_config = json.load(j)
             new_config["usuario"] = user_name.value
 
-        with open("./dados/config.json", "w", encoding="utf-8") as j:
+        with open(user_config, "w", encoding="utf-8") as j:
             json.dump(new_config, j, indent=2, ensure_ascii=False)
 
         name_dialog.open = False
@@ -242,6 +244,10 @@ def main(page: Page):
         content=Column([user_name], tight=True),
         actions=[ElevatedButton(text="Confirmar", on_click=join_click)],
     )
+
+    config = {}
+    with open(user_config, "r", encoding="utf-8") as j:
+        config = json.load(j)
 
     if config["usuario"] == "":
         page.overlay.append(name_dialog)
