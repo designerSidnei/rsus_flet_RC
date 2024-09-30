@@ -27,10 +27,7 @@ class MoverPDF(Row):
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
-
         self.progress_bar = ProgressBar()
-        
-
         self.sorce_dir = CustomTextField("Diretório de origem")
         self.target_dir = CustomTextField("Diretório de destino")
         self.source_button = DirButton("Buscar", icons.SEARCH, self.sorce_dir)
@@ -93,8 +90,8 @@ class MoverPDF(Row):
             ),
         )
 
-    def close_dlg(self, e):
-        self.dlg.open = False
+    def close_dlg(self, dlg):
+        dlg.open = False
         self.page.update()
 
     async def move_pdfs(self, source_dir, target_dir):
