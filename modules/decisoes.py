@@ -19,9 +19,8 @@ colunas_decisao = [
     "VLR REMANESCENTE",
 ]
 
+
 # Localiza as colunas necessárias
-
-
 def procura_col(planilha, colunas):
     for coluna in colunas:
         if coluna in planilha:
