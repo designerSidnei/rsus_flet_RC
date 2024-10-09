@@ -77,7 +77,8 @@ class Decisao(Row):
             actions=[TextButton("OK", on_click=lambda _: self.close_dlg(dlg))],
             actions_alignment=MainAxisAlignment.CENTER,
         )
-        self.page.dialog.overlay.append(dlg)
+        self.page.overlay.append(dlg)
+        # self.page.dialog.overlay.append(dlg)
         dlg.open = True
         self.page.update()
 
