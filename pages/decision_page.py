@@ -67,6 +67,8 @@ class Decisao(Row):
         self.page.update()
 
     async def passar_decisao(self, plan_path, plan_dados):
+        if not asyncio.ALL_COMPLETED:
+            asyncio.timeout(0)
         self.plan_path = plan_path
         self.plan_dados = plan_dados
 

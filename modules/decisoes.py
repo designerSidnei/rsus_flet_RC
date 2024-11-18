@@ -84,7 +84,13 @@ async def mainn(path_plan, path_dados):
     tipo_procedimento = procura_col(df, lista_tipo_procedimento)
 
     # Se não tiver nenhuma dessas colunas acima retorna mensagem de aviso
-    if atendimento is None or competencia is None or tipo_procedimento is None:
+    if any((atendimento, competencia, tipo_procedimento) is None):
+        not_coluna = ("do atendimento" if atendimento in None
+                      else "da competencia" if competencia is None
+                      else "do tipo de procedimento (Principal/Secundário"
+                      )
+        return f"Coluna {not_coluna} não encontrada!"
+    """if atendimento is None or competencia is None or tipo_procedimento is None:
         not_coluna = (
             "do atendimento"
             if atendimento is None
@@ -92,13 +98,13 @@ async def mainn(path_plan, path_dados):
             if competencia is None
             else "do tipo de procedimento (Principal/Secundário)"
         )
-        return f"Coluna {not_coluna} não encontrada!"
+        return f"Coluna {not_coluna} não encontrada!"""
 
     # Formata os valores da coluna do atendimento de número para string de números inteiros
     try:
         df[atendimento] = df[atendimento].apply(lambda x: str(int(x)))  # type: ignore
     except ValueError:
-        return "ValueError: não da pra converter espaço vazio em inteiro"
+        return "ValueError: não da pra converter espaço vazio em inteiro (coluna do número do atendimento)"
 
     for key in data_base.keys():
         for index, row in df.iterrows():
