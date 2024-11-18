@@ -67,27 +67,27 @@ class Decisao(Row):
         self.page.update()
 
     async def passar_decisao(self, plan_path, plan_dados):
-        if not asyncio.ALL_COMPLETED:
-            asyncio.timeout(0)
-        self.plan_path = plan_path
-        self.plan_dados = plan_dados
+        try:
+            self.plan_path = plan_path
+            self.plan_dados = plan_dados
 
-        dlg = AlertDialog(
-            modal=True,
-            title=Text("Aguarde..."),
-            content=self.progress_bar,
-            actions=[TextButton("OK", on_click=lambda _: self.close_dlg(dlg))],
-            actions_alignment=MainAxisAlignment.CENTER,
-        )
-        self.page.overlay.append(dlg)
-        # self.page.dialog.overlay.append(dlg)
-        dlg.open = True
-        self.page.update()
+            dlg = AlertDialog(
+                modal=True,
+                title=Text("Aguarde..."),
+                content=self.progress_bar,
+                actions=[TextButton("OK", on_click=lambda _: self.close_dlg(dlg))],
+                actions_alignment=MainAxisAlignment.CENTER,
+            )
+            self.page.overlay.append(dlg)
+            dlg.open = True
+            self.page.update()
 
-        decision = asyncio.create_task(mainn(self.plan_path, self.plan_dados))
-        result = await decision # quando é retornado algum valor é obrigatório o uso de 'await'
+            result = await asyncio.create_task(mainn(self.plan_path, self.plan_dados)) # quando é retornado algum valor é obrigatório o uso de 'await'
 
-        if result:
             dlg.title = Text("Resultado:")
-            dlg.content = Text(result)
+            dlg.content = Text(result) if result else Text("Nenhuma resultado encontrado.")
+            self.page.update()
+        except Exception as e:
+            dlg.title = Text("Erro:")
+            dlg.content = Text(f"Ocorreu um erro: {str(e)}.")
             self.page.update()

@@ -91,15 +91,6 @@ async def mainn(path_plan, path_dados):
                       else "do tipo de procedimento (Principal/Secundário"
                       )
         return f"Coluna {not_coluna} não encontrada!"
-    """if atendimento is None or competencia is None or tipo_procedimento is None:
-        not_coluna = (
-            "do atendimento"
-            if atendimento is None
-            else "da competência"
-            if competencia is None
-            else "do tipo de procedimento (Principal/Secundário)"
-        )
-        return f"Coluna {not_coluna} não encontrada!"""
 
     # Formata os valores da coluna do atendimento de número para string de números inteiros
     try:
