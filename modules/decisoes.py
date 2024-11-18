@@ -84,7 +84,7 @@ async def mainn(path_plan, path_dados):
     tipo_procedimento = procura_col(df, lista_tipo_procedimento)
 
     # Se não tiver nenhuma dessas colunas acima retorna mensagem de aviso
-    if any((atendimento, competencia, tipo_procedimento) is None):
+    if any((atendimento, competencia, tipo_procedimento)) is None:
         not_coluna = ("do atendimento" if atendimento in None
                       else "da competencia" if competencia is None
                       else "do tipo de procedimento (Principal/Secundário"
