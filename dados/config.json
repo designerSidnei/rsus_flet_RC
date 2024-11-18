@@ -47,7 +47,6 @@
   },
   "nome_procedimento": {
     "especial": [
-      "DIÁLISE",
       "TERAPIA",
       "FACOEMU",
       "EVOCADO",
@@ -67,6 +66,8 @@
       "AVALIACAO"
     ],
     "ambulatorial": [
+      "QUIMIOTERAPIA",
+      "HEMODIÁLISE",
       "TRANSPLANTE DE CORNEA",
       "RETIRADA DE CATETER",
       "CURATIVO EM MÉDIDO QUEIMADO"
