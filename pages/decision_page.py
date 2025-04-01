@@ -37,8 +37,8 @@ class Decisao(Row):
         )
         self.visible = False
 
-    def build(self):
-        return Column(
+        # Construir o conteúdo principal
+        self.content = Column(
             [
                 Row(
                     [self.planilha, self.plan_button],
@@ -61,6 +61,11 @@ class Decisao(Row):
             ],
             horizontal_alignment=CrossAxisAlignment.CENTER,
         )
+
+        # Adicionar o conteúdo como controle do Row
+        self.controls = [self.content]
+        self.expand = True
+        self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, dlg):
         dlg.open = False

@@ -51,7 +51,7 @@ class Config(Column):
                 controls=[
                     Radio(value="especial", label="Especial"),
                     Radio(value="consulta", label="Consulta"),
-                    Radio(value="ambulatorial", label="Abulatorial"),
+                    Radio(value="ambulatorial", label="Ambulatorial"),
                 ],
             ),
         )
@@ -91,11 +91,10 @@ class Config(Column):
             controls_padding=20,
         )
 
-    def build(self):
-        return Container(
+        # Construir o conteúdo principal
+        self.content = Container(
             expand=True,
             width=660,
-            # alignment=alignment.top_center,
             content=Column(
                 controls=[
                     self.expansion_panel_plan_data,
@@ -107,6 +106,11 @@ class Config(Column):
                 scroll=True,
             ),
         )
+
+        # Adicionar o conteúdo como controle do Column
+        self.controls = [self.content]
+        self.expand = True
+        self.alignment = MainAxisAlignment.CENTER
 
     def show_options(self, e):
         if self.choose_plan_data.value == "Nome do procedimento":
@@ -148,7 +152,7 @@ class Config(Column):
                     self.campo_nome_procedimento.value
                 )
                 msg = f"{
-                    self.campo_nome_procedimento.value} adicionado a 'Alegalção'."
+                    self.campo_nome_procedimento.value} adicionado a 'Alegação'."
             elif self.choose_plan_data.value == "Opinião (Decisão)":
                 config["lista_opiniao_decisao"].append(
                     self.campo_nome_procedimento.value

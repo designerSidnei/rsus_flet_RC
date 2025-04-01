@@ -1,4 +1,4 @@
-from flet import Column, Page, Row, Text, CrossAxisAlignment, Container
+from flet import Column, Page, Row, Text, CrossAxisAlignment, Container, MainAxisAlignment
 
 from datetime import datetime
 from pathlib import Path
@@ -32,18 +32,23 @@ class MainPage(Row):
             ),
         )
 
-    def did_mount(self):
-        self.running = True
-        self.page.run_task(self.today_datetime)
-
-    def build(self):
-        return Column(
+        # Construir o conteúdo principal
+        self.content = Column(
             horizontal_alignment=CrossAxisAlignment.CENTER,
             controls=[
                 self.user_text,
                 self.date_time_now,
             ],
         )
+
+        # Adicionar o conteúdo como controle do Row
+        self.controls = [self.content]
+        self.expand = True
+        self.alignment = MainAxisAlignment.CENTER
+
+    def did_mount(self):
+        self.running = True
+        self.page.run_task(self.today_datetime)
 
     async def today_datetime(self):
         while self.running:
