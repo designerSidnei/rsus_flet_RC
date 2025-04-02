@@ -59,6 +59,7 @@ class Memo(Column):
             content=Column(
                 expand=True,
                 alignment="center",
+                width=self.page.window.width - 135,
                 spacing=0,
                 horizontal_alignment=CrossAxisAlignment.CENTER,
                 controls=[self.plan_path, self.do_it_button],
@@ -68,7 +69,7 @@ class Memo(Column):
         # Adicionar o conteúdo como controle do Column
         self.controls = [self.content]
         self.expand = True
-        self.alignment = MainAxisAlignment.CENTER
+        # self.alignment = MainAxisAlignment.CENTER
 
     async def memo(self, planilha_path):
         dlg = AlertDialog(

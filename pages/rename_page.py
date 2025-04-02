@@ -77,6 +77,7 @@ class Rename(Row):
         self.content = Column(
             horizontal_alignment=CrossAxisAlignment.CENTER,
             spacing=0,
+            width=self.page.window.width - 135,
             controls=[
                 Container(
                     expand=1,
@@ -104,7 +105,7 @@ class Rename(Row):
         # Adicionar o conteúdo como controle do Row
         self.controls = [self.content]
         self.expand = True
-        self.alignment = MainAxisAlignment.CENTER
+        # self.alignment = MainAxisAlignment.CENTER
 
     def pick_files_result(self, e: FilePickerResultEvent):
         selected_files = (

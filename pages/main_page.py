@@ -39,12 +39,13 @@ class MainPage(Row):
                 self.user_text,
                 self.date_time_now,
             ],
+            width=self.page.window.width - 135,
         )
 
         # Adicionar o conteúdo como controle do Row
         self.controls = [self.content]
         self.expand = True
-        self.alignment = MainAxisAlignment.CENTER
+        # self.alignment = MainAxisAlignment.END
 
     def did_mount(self):
         self.running = True

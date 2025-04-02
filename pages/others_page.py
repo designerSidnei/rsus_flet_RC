@@ -23,10 +23,10 @@ class Outros(Row):
         self.content = Tabs(
             tabs=[self.compare_page, self.open_page, self.move_pdf_page],
             selected_index=0,
-            width=self.page.window.width - 130,
+            width=self.page.window.width - 135,
         )
 
         # Adicionar o conteúdo como controle do Row
         self.controls = [self.content]
         self.expand = True
-        self.alignment = MainAxisAlignment.CENTER
+        # self.alignment = MainAxisAlignment.CENTER

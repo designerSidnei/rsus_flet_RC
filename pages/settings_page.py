@@ -94,7 +94,8 @@ class Config(Column):
         # Construir o conteúdo principal
         self.content = Container(
             expand=True,
-            width=660,
+            # width=660,
+            width=self.page.window.width - 135,
             content=Column(
                 controls=[
                     self.expansion_panel_plan_data,
@@ -110,7 +111,7 @@ class Config(Column):
         # Adicionar o conteúdo como controle do Column
         self.controls = [self.content]
         self.expand = True
-        self.alignment = MainAxisAlignment.CENTER
+        # self.alignment = MainAxisAlignment.CENTER
 
     def show_options(self, e):
         if self.choose_plan_data.value == "Nome do procedimento":

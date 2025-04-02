@@ -279,7 +279,7 @@ def main(page: Page):
             sidebar,
             Container(
                 content=Row(
-                    [
+                    controls=[
                         main_page,
                         decision_page,
                         rename_page,
@@ -291,16 +291,16 @@ def main(page: Page):
                     alignment=MainAxisAlignment.CENTER,
                 ),
                 padding=padding.symmetric(vertical=25),
-                expand=True,
+                # expand=True,
             ),
         ],
         expand=True,
     )
 
     # Adicionar a estrutura principal à página
-    page.horizontal_alignment = CrossAxisAlignment.CENTER
+    # page.horizontal_alignment = CrossAxisAlignment.CENTER
     page.add(app_win)
-    
+
     # Atualizar a página inicialmente
     page.update()
 

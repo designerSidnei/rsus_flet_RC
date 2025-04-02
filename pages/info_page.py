@@ -118,7 +118,8 @@ class Info(Column):
         # Construir o conteúdo principal
         self.content = Column(
             expand=True,
-            width=660,
+            # width=660,
+            width=self.page.window.width - 135,
             horizontal_alignment=CrossAxisAlignment.CENTER,
             controls=[info_layout],
         )
@@ -126,4 +127,4 @@ class Info(Column):
         # Adicionar o conteúdo como controle do Column
         self.controls = [self.content]
         self.expand = True
-        self.alignment = MainAxisAlignment.CENTER
+        # self.alignment = MainAxisAlignment.CENTER
