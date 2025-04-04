@@ -180,7 +180,20 @@ def main(page: Page):
     info_page = Info(page)
     settings_page = Config(page)
 
+    all_pages = [
+        main_page,
+        decision_page,
+        rename_page,
+        memo_page,
+        others_page,
+        info_page,
+        settings_page
+    ]
+
     def set_app_bar_pages(current_page: Row):
+        for each_page in all_pages:
+            each_page.visible = False
+        
         if current_page == settings_page:
             settings_page.visible = True
             info_page.visible = False
@@ -190,11 +203,6 @@ def main(page: Page):
             settings_page.visible = False
             page.appbar.title = Text("Sobre o App")
         sidebar.nav_rail.selected_index = None
-        main_page.visible = False
-        decision_page.visible = False
-        rename_page.visible = False
-        memo_page.visible = False
-        others_page.visible = False
         page.update()
 
     page.appbar = AppBar(
@@ -279,15 +287,7 @@ def main(page: Page):
             sidebar,
             Container(
                 content=Row(
-                    controls=[
-                        main_page,
-                        decision_page,
-                        rename_page,
-                        memo_page,
-                        others_page,
-                        info_page,
-                        settings_page,
-                    ],
+                    controls=all_pages,
                     alignment=MainAxisAlignment.CENTER,
                 ),
                 padding=padding.symmetric(vertical=25),
