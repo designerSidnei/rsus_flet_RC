@@ -1,4 +1,24 @@
 # Ignora a pasta venv
 /venv/
-/*_pycache_/
-/.mypy_cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+
+# Ambiente virtual
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo

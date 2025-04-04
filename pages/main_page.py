@@ -1,4 +1,4 @@
-from flet import Column, Page, Row, Text, CrossAxisAlignment, Container, MainAxisAlignment
+from flet import Column, Page, Row, Text, CrossAxisAlignment, Container
 
 from datetime import datetime
 from pathlib import Path

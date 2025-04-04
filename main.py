@@ -16,7 +16,6 @@ from flet import (
     Column,
     Row,
     MainAxisAlignment,
-    CrossAxisAlignment,
     IconButton,
     AlertDialog,
     margin,
@@ -166,10 +165,13 @@ def main(page: Page):
     page.padding = 0
     page.bgcolor = Colors.BLUE_GREY_900
 
-    page.theme = Theme(color_scheme=ColorScheme(
-        primary=Colors.BLUE_400,
-        secondary_container=Colors.BLUE_400,
-    ))
+    page.theme = Theme(
+        color_scheme=ColorScheme(
+            primary=Colors.BLUE_400,
+            # secondary_container=Colors.BLUE_400
+        ),
+        color_scheme_seed=Colors.BLUE,
+    )
 
     # Inicialização das páginas
     main_page = MainPage(page)
@@ -208,6 +210,7 @@ def main(page: Page):
     page.appbar = AppBar(
         title=Text("Página inicial"),
         center_title=True,
+        color=Colors.WHITE,
         bgcolor=Colors.BLACK26,
         actions=[
             IconButton(
