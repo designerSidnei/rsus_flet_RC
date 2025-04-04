@@ -99,6 +99,7 @@ class Config(Column):
             subtitle=Text("Selecione as opções"),
             controls=self.list_coluna,
             collapsed_bgcolor=colors.GREY_800,
+            collapsed_text_color=colors.WHITE,
             controls_padding=20,
         )
 
@@ -107,6 +108,7 @@ class Config(Column):
             subtitle=Text("Resetar usuário"),
             controls=[TextButton("Resetar usuário", on_click=self.user_reset)],
             collapsed_bgcolor=colors.GREY_800,
+            collapsed_text_color=colors.WHITE,
             controls_padding=20,
         )
 

@@ -211,14 +211,21 @@ def main(page: Page):
     page.window.resizable = False
     page.window.center()
     page.padding = 0
-    page.bgcolor = Colors.BLUE_GREY_900
+    page.bgcolor = Colors.BLUE_GREY_50
 
     page.theme = Theme(
         color_scheme=ColorScheme(
-            primary=Colors.BLUE_400,
-            # secondary_container=Colors.BLUE_400
+            primary=Colors.BLUE_600,
+            secondary=Colors.BLUE_400,
+            background=Colors.WHITE,
+            surface=Colors.WHITE,
+            on_primary=Colors.WHITE,
+            on_secondary=Colors.WHITE,
+            on_background=Colors.BLACK,
+            on_surface=Colors.BLACK,
         ),
         color_scheme_seed=Colors.BLUE,
+        use_material3=True,
     )
 
     # Inicialização das páginas
@@ -258,7 +265,6 @@ def main(page: Page):
     page.appbar = AppBar(
         title=Text("Página inicial"),
         center_title=True,
-        color=Colors.WHITE,
         bgcolor=Colors.BLACK26,
         actions=[
             IconButton(

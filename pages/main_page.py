@@ -29,6 +29,7 @@ class MainPage(Row):
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
+        self.running = False
         self.user = self.congig_user()
         self.user_text = Text(
             value=self.user,
@@ -73,6 +74,14 @@ class MainPage(Row):
         self.running = True
         self.page.run_task(self.today_datetime)
 
+    def will_unmount(self):
+        """
+        Método chamado quando o componente será desmontado.
+        
+        Interrompe a tarefa assíncrona de atualização do relógio.
+        """
+        self.running = False
+
     async def today_datetime(self):
         """
         Atualiza o relógio digital a cada segundo.
@@ -81,17 +90,15 @@ class MainPage(Row):
         o relógio atualizado sem bloquear a interface.
         """
         while self.running:
-            if datetime.now() > self.past:
-                self.time_now.value = datetime.now().strftime("%H:%M:%S")
-            else:
-                self.time_now.value = str(self.past)
-            self.page.update()
             try:
+                if datetime.now() > self.past:
+                    self.time_now.value = datetime.now().strftime("%H:%M:%S")
+                else:
+                    self.time_now.value = str(self.past)
+                self.page.update()
                 await asyncio.sleep(1)
-            except asyncio.exceptions.CancelledError:
-                break
             except Exception:
-                print("")
+                break
 
     def congig_user(self):
         """
