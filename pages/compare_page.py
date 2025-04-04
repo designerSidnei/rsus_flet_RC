@@ -30,7 +30,7 @@ class Batimento(Row):
 
         self.plan_text_field = CustomTextField("Planilha para batimento")
         self.plan_button = Buttons(
-            "Buscar", icons.SEARCH, self.plan_text_field, ["xlsx"]
+            page, "Buscar", icons.SEARCH, self.plan_text_field, ["xlsx"]
         )
 
         self.dlg = AlertDialog(

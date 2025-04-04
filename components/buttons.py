@@ -1,10 +1,11 @@
-from flet import (Row, icons, TextField, FilePicker, FilePickerFileType, FilePickerResultEvent, ElevatedButton
+from flet import (Page, Row, icons, TextField, FilePicker, FilePickerFileType, FilePickerResultEvent, ElevatedButton
 )
 
 
 class Buttons(Row):
-    def __init__(self, button_text: str, button_icon: icons, path_text_field: TextField, file_type: list):
+    def __init__(self, page: Page, button_text: str, button_icon: icons, path_text_field: TextField, file_type: list):
         super().__init__()
+        self.page = page
         self.file_picker = FilePicker(on_result=self.pick_files_result)
         self.button_text = button_text
         self.button_icon = button_icon
@@ -15,15 +16,27 @@ class Buttons(Row):
         self.current_target_field = None
         self._path_name = ""
 
-    def build(self):
-        self.page.overlay.append(self.file_picker)
-        return ElevatedButton(
+        """ def build(self):
+            self.page.overlay.append(self.file_picker)
+            return ElevatedButton(
+                text=self.button_text,
+                height=50,
+                width=140,
+                icon=self.button_icon,
+                on_click=lambda _: self.set_target_and_pick_files(self.path_text_field, self.file_type)
+            ) """
+    
+        self.content = ElevatedButton(
             text=self.button_text,
             height=50,
             width=140,
             icon=self.button_icon,
             on_click=lambda _: self.set_target_and_pick_files(self.path_text_field, self.file_type)
         )
+        
+        self.page.overlay.append(self.file_picker)
+        self.controls = [self.content]
+        
 
     def set_target_and_pick_files(self, target_field: TextField, file_type):
         # Define o TextField alvo e inicia a seleção de arquivos

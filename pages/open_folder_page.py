@@ -27,7 +27,7 @@ class AbrirPasta(Row):
         self.page = page
         self.progress_bar = ProgressBar()
         self.plan = CustomTextField("Planilha de base para abertura de pastas")
-        self.plan_button = Buttons("Buscar", icons.SEARCH, self.plan, ["xlsx"])
+        self.plan_button = Buttons(page, "Buscar", icons.SEARCH, self.plan, ["xlsx"])
 
         self.plan_path = Container(
             expand=1,

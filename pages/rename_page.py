@@ -34,7 +34,7 @@ class Rename(Row):
         self.page.overlay.append(self.pick_files)
         self.arquivos = CustomTextField(hint="Planilha com dados para renomear docs")
         self.plan_button = Buttons(
-            "Buscar dados", icons.SEARCH, self.arquivos, ["xlsx"]
+            page, "Buscar dados", icons.SEARCH, self.arquivos, ["xlsx"]
         )
 
         # Construir os componentes

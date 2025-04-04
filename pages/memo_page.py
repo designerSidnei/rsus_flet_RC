@@ -30,7 +30,7 @@ class Memo(Column):
         self.visible = False
         self.progress_bar = ProgressBar()
         self.plan = CustomTextField("Planilha com base para memória")
-        self.plan_button = Buttons("Buscar", icons.SEARCH, self.plan, ["xlsx"])
+        self.plan_button = Buttons(page, "Buscar", icons.SEARCH, self.plan, ["xlsx"])
 
         self.plan_path = Container(
             expand=1,

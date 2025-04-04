@@ -6,8 +6,10 @@ class CustomTextField(Row):
         self.hint = hint
         self.text_field = TextField(hint_text=self.hint, width=350, read_only=True)
         self._text_field_value = self.text_field.value
-    def build(self):
-        return self.text_field
+        """ def build(self):
+            return self.text_field """
+        
+        self.controls = [self.text_field]
     
     def set_text(self, text):
         self.text_field.value = text

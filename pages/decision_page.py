@@ -31,10 +31,10 @@ class Decisao(Row):
         self.plan_path = None
         self.plan_dados = None
         self.plan_button = Buttons(
-            "Buscar planilha", icons.FILE_OPEN_OUTLINED, self.planilha, ["xlsx"]
+            page, "Buscar planilha", icons.FILE_OPEN_OUTLINED, self.planilha, ["xlsx"]
         )
         self.dados_button = Buttons(
-            "Buscar dados", icons.FILE_OPEN_OUTLINED, self.dados, ["pdf"]
+            page, "Buscar dados", icons.FILE_OPEN_OUTLINED, self.dados, ["pdf"]
         )
         self.visible = False
 
@@ -60,20 +60,15 @@ class Decisao(Row):
                     ),
                 ),
             ],
-            expand=True,
+            # expand=True,
             width=self.page.window.width - 135,
             horizontal_alignment=CrossAxisAlignment.CENTER,
         )
 
         # Adicionar o conteúdo como controle do Row
-        self.controls = [
-            Container(
-                expand=True,
-                content=self.content
-            )
-        ]
-        self.expand = True
-        self.alignment = MainAxisAlignment.CENTER
+        self.controls = [self.content]
+        # self.expand = True
+        # self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, dlg):
         dlg.open = False
