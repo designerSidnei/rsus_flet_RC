@@ -30,8 +30,8 @@ class MoverPDF(Row):
         self.progress_bar = ProgressBar()
         self.sorce_dir = CustomTextField("Diretório de origem")
         self.target_dir = CustomTextField("Diretório de destino")
-        self.source_button = DirButton("Buscar", icons.SEARCH, self.sorce_dir)
-        self.target_button = DirButton("Buscar", icons.SEARCH, self.target_dir)
+        self.source_button = DirButton(page, "Buscar", icons.SEARCH, self.sorce_dir)
+        self.target_button = DirButton(page, "Buscar", icons.SEARCH, self.target_dir)
 
         self.folder_dir = Container(
             expand=1,
