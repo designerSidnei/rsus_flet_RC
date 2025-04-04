@@ -1,3 +1,10 @@
+"""
+Módulo que implementa a página de configurações do aplicativo RSUS.
+
+Este módulo contém a implementação da página de configurações, que permite
+ao usuário gerenciar dados de planilhas e configurações de usuário.
+"""
+
 import json
 from flet import (
     AlertDialog,
@@ -22,6 +29,18 @@ from pathlib import Path
 
 
 class Config(Column):
+    """
+    Página de configurações do aplicativo.
+
+    Esta classe implementa a página de configurações que permite ao usuário:
+    - Adicionar dados a planilhas (procedimentos, alegações, opiniões)
+    - Gerenciar configurações de usuário
+    - Resetar as configurações do usuário
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
@@ -114,6 +133,15 @@ class Config(Column):
         # self.alignment = MainAxisAlignment.CENTER
 
     def show_options(self, e):
+        """
+        Exibe as opções apropriadas com base na seleção do usuário no dropdown.
+
+        Controla a visibilidade dos campos de entrada baseado no tipo de dado
+        selecionado para a planilha.
+
+        Args:
+            e: Evento de mudança do dropdown
+        """
         if self.choose_plan_data.value == "Nome do procedimento":
             self.choose_group.visible = True
             self.coluna_submit.visible = True
@@ -132,6 +160,15 @@ class Config(Column):
         self.page.update()
 
     def submit(self, e):
+        """
+        Processa o envio de novos dados para a configuração.
+
+        Adiciona o novo item à categoria apropriada no arquivo de configuração
+        e exibe uma mensagem de confirmação.
+
+        Args:
+            e: Evento do botão de envio
+        """
         config = {}
         msg = ""
 
@@ -175,6 +212,15 @@ class Config(Column):
         self.page.update()
 
     def user_reset(self, e):
+        """
+        Reseta as configurações do usuário.
+
+        Remove o nome do usuário atual das configurações e exibe uma mensagem
+        solicitando que o programa seja reiniciado.
+
+        Args:
+            e: Evento do botão de reset
+        """
         config = {}
 
         with open(self.user_home_path, "r", encoding="utf-8") as j:
@@ -192,5 +238,11 @@ class Config(Column):
         self.page.update()
 
     def close_dlg(self, e):
+        """
+        Fecha o diálogo de mensagem.
+
+        Args:
+            e: Evento do botão de fechar
+        """
         self.dlg.open = False
         self.page.update()

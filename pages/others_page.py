@@ -1,9 +1,18 @@
+"""
+Módulo que implementa a página de outras funcionalidades do aplicativo RSUS.
+
+Este módulo contém a implementação da página que agrupa funcionalidades
+adicionais do aplicativo em abas separadas, incluindo:
+- Batimento de dados
+- Abertura de pastas
+- Movimentação de PDFs
+"""
+
 from flet import (
     Page,
     Row,
     Tabs,
     Tab,
-    MainAxisAlignment,
 )
 from pages.compare_page import Batimento
 from pages.open_folder_page import AbrirPasta
@@ -11,6 +20,19 @@ from pages.move_pdf_page import MoverPDF
 
 
 class Outros(Row):
+    """
+    Página de funcionalidades adicionais.
+
+    Esta classe implementa uma interface com abas que agrupa diferentes
+    funcionalidades auxiliares do aplicativo:
+    - Batimento: Comparação de dados entre planilhas
+    - Abrir pasta: Acesso rápido a diretórios do sistema
+    - Mover PDF: Organização de arquivos PDF
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page

@@ -1,3 +1,11 @@
+"""
+Módulo que implementa a página de movimentação de PDFs do aplicativo RSUS.
+
+Este módulo contém a implementação da página que permite ao usuário
+mover arquivos PDF entre diretórios do sistema, facilitando a
+organização dos documentos.
+"""
+
 from flet import (
     Page,
     ProgressBar,
@@ -24,6 +32,20 @@ import asyncio
 
 
 class MoverPDF(Row):
+    """
+    Página de movimentação de arquivos PDF.
+
+    Esta classe implementa a interface para mover arquivos PDF entre
+    diretórios, permitindo ao usuário:
+    - Selecionar um diretório de origem
+    - Selecionar um diretório de destino
+    - Mover todos os PDFs da origem para o destino
+    - Visualizar o progresso e resultado da operação
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
@@ -97,10 +119,27 @@ class MoverPDF(Row):
         # self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, dlg):
+        """
+        Fecha o diálogo de progresso/resultado.
+
+        Args:
+            dlg (AlertDialog): Diálogo a ser fechado
+        """
         dlg.open = False
         self.page.update()
 
     async def move_pdfs(self, source_dir, target_dir):
+        """
+        Executa a movimentação dos arquivos PDF de forma assíncrona.
+
+        Este método copia todos os arquivos PDF do diretório de origem
+        para o diretório de destino, exibindo o progresso e resultado
+        em um diálogo.
+
+        Args:
+            source_dir (str): Caminho do diretório de origem
+            target_dir (str): Caminho do diretório de destino
+        """
         dlg = AlertDialog(
             modal=True,
             title=Text("Aguarde..."),

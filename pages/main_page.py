@@ -1,3 +1,10 @@
+"""
+Módulo que implementa a página inicial do aplicativo RSUS.
+
+Este módulo contém a implementação da página inicial, que exibe
+informações básicas como nome do usuário e hora atual.
+"""
+
 from flet import Column, Page, Row, Text, CrossAxisAlignment, Container
 
 from datetime import datetime
@@ -9,6 +16,16 @@ import asyncio
 
 
 class MainPage(Row):
+    """
+    Página inicial do aplicativo.
+
+    Esta classe implementa a página inicial que exibe uma saudação ao usuário
+    e um relógio digital atualizado em tempo real.
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
@@ -48,10 +65,21 @@ class MainPage(Row):
         # self.alignment = MainAxisAlignment.END
 
     def did_mount(self):
+        """
+        Método chamado quando o componente é montado.
+        
+        Inicia a tarefa assíncrona de atualização do relógio.
+        """
         self.running = True
         self.page.run_task(self.today_datetime)
 
     async def today_datetime(self):
+        """
+        Atualiza o relógio digital a cada segundo.
+
+        Este método é executado de forma assíncrona para manter
+        o relógio atualizado sem bloquear a interface.
+        """
         while self.running:
             if datetime.now() > self.past:
                 self.time_now.value = datetime.now().strftime("%H:%M:%S")
@@ -66,6 +94,13 @@ class MainPage(Row):
                 print("")
 
     def congig_user(self):
+        """
+        Carrega e retorna a mensagem de boas-vindas personalizada para o usuário.
+
+        Returns:
+            str: Mensagem de boas-vindas com o nome do usuário ou mensagem genérica
+                caso não haja usuário configurado.
+        """
         user_config = {}
         user_home_path = Path().joinpath(Path().home(), ".rsus")
         os.makedirs(user_home_path, exist_ok=True)
@@ -85,6 +120,11 @@ class MainPage(Row):
             return f"Olá, {user}!\nBem vindo!"
 
     def updater(self):
+        """
+        Atualiza a mensagem de boas-vindas na interface.
+        
+        Este método é chamado quando há alterações nas configurações do usuário.
+        """
         self.user = self.congig_user()
         self.user_text.value = self.user
         self.page.update()

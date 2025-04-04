@@ -1,3 +1,11 @@
+"""
+Módulo que implementa a página de abertura de pastas do aplicativo RSUS.
+
+Este módulo contém a implementação da página que permite ao usuário
+abrir múltiplas pastas do sistema automaticamente com base em uma
+planilha de referência.
+"""
+
 from flet import (
     Page,
     Container,
@@ -22,6 +30,19 @@ from modules.open_files import abrir_pastas
 
 
 class AbrirPasta(Row):
+    """
+    Página de abertura automática de pastas.
+
+    Esta classe implementa a interface para abrir múltiplas pastas do sistema
+    automaticamente, permitindo ao usuário:
+    - Selecionar uma planilha com os caminhos das pastas
+    - Executar a abertura automática das pastas
+    - Visualizar o progresso e resultado da operação
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
@@ -76,10 +97,25 @@ class AbrirPasta(Row):
         # self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, dlg):
+        """
+        Fecha o diálogo de progresso/resultado.
+
+        Args:
+            dlg (AlertDialog): Diálogo a ser fechado
+        """
         dlg.open = False
         self.page.update()
 
     async def open_folder(self, plan_path):
+        """
+        Executa a abertura das pastas de forma assíncrona.
+
+        Este método processa a planilha de referência e abre as pastas
+        especificadas, exibindo o progresso e resultado em um diálogo.
+
+        Args:
+            plan_path (str): Caminho do arquivo da planilha com os caminhos das pastas
+        """
         dlg = AlertDialog(
             modal=True,
             title=Text("Aguarde..."),

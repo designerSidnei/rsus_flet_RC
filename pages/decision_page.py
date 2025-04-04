@@ -1,3 +1,10 @@
+"""
+Módulo que implementa a página de processamento de decisões do aplicativo RSUS.
+
+Este módulo contém a implementação da página que permite ao usuário
+processar decisões a partir de planilhas e notas técnicas.
+"""
+
 from flet import (
     Page,
     AlertDialog,
@@ -22,6 +29,17 @@ from modules.decisoes import mainn
 
 
 class Decisao(Row):
+    """
+    Página de processamento de decisões.
+
+    Esta classe implementa a interface para processar decisões, permitindo
+    ao usuário selecionar uma planilha de decisão e uma nota técnica
+    para processamento.
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
@@ -71,10 +89,29 @@ class Decisao(Row):
         # self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, dlg):
+        """
+        Fecha o diálogo de progresso/resultado.
+
+        Args:
+            dlg (AlertDialog): Diálogo a ser fechado
+        """
         dlg.open = False
         self.page.update()
 
     async def passar_decisao(self, plan_path, plan_dados):
+        """
+        Processa a decisão de forma assíncrona.
+
+        Este método executa o processamento da decisão usando os arquivos
+        selecionados pelo usuário e exibe o progresso e resultado em um diálogo.
+
+        Args:
+            plan_path (str): Caminho do arquivo da planilha
+            plan_dados (str): Caminho do arquivo da nota técnica
+
+        Returns:
+            None
+        """
         try:
             self.plan_path = plan_path
             self.plan_dados = plan_dados

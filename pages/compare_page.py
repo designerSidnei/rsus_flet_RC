@@ -1,3 +1,11 @@
+"""
+Módulo que implementa a página de comparação (batimento) de dados do aplicativo RSUS.
+
+Este módulo contém a implementação da página que permite ao usuário
+comparar duas listas de dados de uma planilha, identificando valores
+que existem em uma lista mas não na outra.
+"""
+
 from flet import (
     Page,
     Container,
@@ -24,6 +32,20 @@ from components.text_fields import CustomTextField
 
 
 class Batimento(Row):
+    """
+    Página de comparação (batimento) de dados.
+
+    Esta classe implementa a interface para comparar duas listas de dados,
+    permitindo ao usuário:
+    - Carregar uma planilha com duas colunas de dados
+    - Visualizar os dados em uma tabela comparativa
+    - Identificar valores que existem em uma lista mas não na outra
+    - Copiar os resultados para a área de transferência
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
@@ -104,13 +126,37 @@ class Batimento(Row):
         # self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, e):
+        """
+        Fecha o diálogo de informação.
+
+        Args:
+            e: Evento do botão de fechar
+        """
         self.dlg.open = False
         self.page.update()
 
     def tit(self, texto):
+        """
+        Cria uma coluna de título para a tabela de dados.
+
+        Args:
+            texto (str): Texto do título da coluna
+
+        Returns:
+            DataColumn: Coluna formatada para a tabela
+        """
         return DataColumn(Text(texto))
 
     def cel(self, matriz):
+        """
+        Converte uma matriz de dados em linhas para a tabela.
+
+        Args:
+            matriz (list): Lista de listas contendo os dados para a tabela
+
+        Returns:
+            list: Lista de DataRow formatados para a tabela
+        """
         linhas = []
         i = 0
         for linha in matriz:
@@ -122,6 +168,19 @@ class Batimento(Row):
         return linhas
 
     def list_dict(self, plan):
+        """
+        Processa a planilha e realiza o batimento dos dados.
+
+        Este método:
+        - Carrega as duas colunas da planilha
+        - Compara os valores entre as listas
+        - Identifica valores únicos em cada lista
+        - Atualiza a tabela com os resultados
+        - Copia os valores diferentes para a área de transferência
+
+        Args:
+            plan (str): Caminho do arquivo da planilha
+        """
         df = pd.read_excel(plan, sheet_name=0, header=None)
         matriz = []
 

@@ -1,3 +1,10 @@
+"""
+Módulo que implementa a página de memória de cálculo do aplicativo RSUS.
+
+Este módulo contém a implementação da página que permite ao usuário
+processar planilhas para gerar memórias de cálculo automaticamente.
+"""
+
 from flet import (
     Page,
     ProgressBar,
@@ -24,6 +31,17 @@ from modules.memoria_de_calculo import process_rows
 
 
 class Memo(Column):
+    """
+    Página de geração de memória de cálculo.
+
+    Esta classe implementa a interface para processar planilhas e gerar
+    memórias de cálculo automaticamente, permitindo ao usuário selecionar
+    uma planilha base para o processamento.
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
@@ -72,6 +90,15 @@ class Memo(Column):
         # self.alignment = MainAxisAlignment.CENTER
 
     async def memo(self, planilha_path):
+        """
+        Processa a planilha para gerar a memória de cálculo.
+
+        Este método executa o processamento da planilha de forma assíncrona
+        e exibe o progresso e resultado em um diálogo.
+
+        Args:
+            planilha_path (str): Caminho do arquivo da planilha base
+        """
         dlg = AlertDialog(
             modal=True,
             title=Text("Aguarde..."),
@@ -93,5 +120,11 @@ class Memo(Column):
             self.page.update()
 
     def close_dlg(self, dlg):
+        """
+        Fecha o diálogo de progresso/resultado.
+
+        Args:
+            dlg (AlertDialog): Diálogo a ser fechado
+        """
         dlg.open = False
         self.page.update()

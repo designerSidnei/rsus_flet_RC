@@ -1,3 +1,10 @@
+"""
+RSUS - Aplicativo para auxiliar no processamento de documentos do SUS.
+
+Este módulo contém a implementação principal do aplicativo RSUS, incluindo
+a interface gráfica e a lógica de navegação entre páginas.
+"""
+
 import json
 from pathlib import Path
 from flet import (
@@ -39,6 +46,23 @@ from pages.info_page import Info
 
 
 class SideBar(Row):
+    """
+    Barra de navegação lateral do aplicativo.
+
+    Esta classe implementa a barra de navegação lateral que permite
+    alternar entre as diferentes páginas do aplicativo.
+
+    Args:
+        page (Page): Página principal do aplicativo
+        main_page (Row): Página inicial
+        decision (Row): Página de decisão
+        rename (Row): Página de renomeação
+        memo (Column): Página de memória de cálculo
+        other (Row): Página de outras opções
+        info (Column): Página de informações
+        settings (Column): Página de configurações
+    """
+
     def __init__(
         self,
         page: Page,
@@ -121,6 +145,12 @@ class SideBar(Row):
         self.expand = True
 
     def set_app_main_bar_pages(self, index):
+        """
+        Define qual página deve estar visível com base no índice selecionado.
+
+        Args:
+            index (int): Índice da página a ser exibida
+        """
         pages_list = [
             self.main_page,
             self.decision,
@@ -135,6 +165,12 @@ class SideBar(Row):
         pages_list[index].visible = True
 
     def mudar_pagina(self, e):
+        """
+        Manipula a mudança de páginas quando um item da navegação é selecionado.
+
+        Args:
+            e: Evento de mudança de página ou índice da página
+        """
         index = e if isinstance(e, int) else e.control.selected_index
 
         if index == 0:
@@ -156,6 +192,18 @@ class SideBar(Row):
 
 
 def main(page: Page):
+    """
+    Função principal do aplicativo.
+
+    Configura e inicializa a interface do usuário, incluindo:
+    - Configuração da janela principal
+    - Inicialização das páginas
+    - Configuração da barra de navegação
+    - Gerenciamento das configurações do usuário
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
     page.title = "RSUS"
     page.window.width = 800
     page.window.height = 520

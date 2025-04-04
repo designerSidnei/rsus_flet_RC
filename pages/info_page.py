@@ -1,3 +1,10 @@
+"""
+Módulo que implementa a página de informações do aplicativo RSUS.
+
+Este módulo contém a implementação da página que exibe informações
+sobre o aplicativo, como versão, desenvolvedor e datas importantes.
+"""
+
 from flet import (
     FontWeight,
     MainAxisAlignment,
@@ -14,6 +21,23 @@ import json
 
 
 class Info(Column):
+    """
+    Página de informações do aplicativo.
+
+    Esta classe implementa a interface que exibe informações gerais sobre
+    o aplicativo, incluindo:
+    - Nome e descrição do aplicativo
+    - Desenvolvedor
+    - Data de criação
+    - Versão atual
+    - Data da última atualização
+
+    As informações são carregadas de um arquivo JSON de configuração.
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page

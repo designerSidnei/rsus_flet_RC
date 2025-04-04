@@ -1,3 +1,11 @@
+"""
+Módulo que implementa a página de renomeação de arquivos do aplicativo RSUS.
+
+Este módulo contém a implementação da página que permite ao usuário
+selecionar múltiplos arquivos PDF e renomeá-los de acordo com dados
+de uma planilha.
+"""
+
 from flet import (
     Page,
     FilePicker,
@@ -24,6 +32,17 @@ from modules.renomeia import caminho_arquivos
 
 
 class Rename(Row):
+    """
+    Página de renomeação de arquivos.
+
+    Esta classe implementa a interface para renomear múltiplos arquivos PDF,
+    permitindo ao usuário selecionar uma planilha com os novos nomes e os
+    arquivos a serem renomeados.
+
+    Args:
+        page (Page): Página principal do aplicativo Flet
+    """
+
     def __init__(self, page: Page):
         super().__init__()
         self.page = page
@@ -108,6 +127,15 @@ class Rename(Row):
         # self.alignment = MainAxisAlignment.CENTER
 
     def pick_files_result(self, e: FilePickerResultEvent):
+        """
+        Manipula o resultado da seleção de arquivos.
+
+        Este método é chamado quando o usuário seleciona arquivos através
+        do FilePicker. Atualiza a lista de arquivos selecionados na interface.
+
+        Args:
+            e (FilePickerResultEvent): Evento contendo os arquivos selecionados
+        """
         selected_files = (
             ", ".join(map(lambda f: f.name, e.files)) if e.files else "Cancelado!"
         )
@@ -124,6 +152,16 @@ class Rename(Row):
             self.list_view_files.update()
 
     async def rename(self, plan_path, arquivos):
+        """
+        Executa a renomeação dos arquivos de forma assíncrona.
+
+        Este método processa a renomeação dos arquivos selecionados usando
+        os dados da planilha especificada e atualiza a interface com o resultado.
+
+        Args:
+            plan_path (str): Caminho do arquivo da planilha com os novos nomes
+            arquivos (list): Lista de caminhos dos arquivos a serem renomeados
+        """
         renomeia = asyncio.create_task(caminho_arquivos(plan_path, arquivos))
         result = await renomeia
         if result:
