@@ -1,6 +1,6 @@
-from flet import TextField, UserControl
+from flet import TextField, Row
 
-class CustomTextField(UserControl):
+class CustomTextField(Row):
     def __init__(self, hint: str):
         super().__init__()
         self.hint = hint

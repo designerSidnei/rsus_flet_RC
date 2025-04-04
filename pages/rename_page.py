@@ -37,7 +37,7 @@ class Rename(Row):
             "Buscar dados", icons.SEARCH, self.arquivos, ["xlsx"]
         )
 
-    def build(self):
+        # Construir os componentes
         self.texts_field_um = Row(
             alignment=MainAxisAlignment.CENTER,
             controls=[
@@ -73,9 +73,11 @@ class Rename(Row):
             ],
         )
 
-        self.layout = Column(
+        # Construir o conteúdo principal
+        self.content = Column(
             horizontal_alignment=CrossAxisAlignment.CENTER,
             spacing=0,
+            width=self.page.window.width - 135,
             controls=[
                 Container(
                     expand=1,
@@ -100,7 +102,10 @@ class Rename(Row):
             ],
         )
 
-        return self.layout
+        # Adicionar o conteúdo como controle do Row
+        self.controls = [self.content]
+        self.expand = True
+        # self.alignment = MainAxisAlignment.CENTER
 
     def pick_files_result(self, e: FilePickerResultEvent):
         selected_files = (

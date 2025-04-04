@@ -39,37 +39,41 @@ class AbrirPasta(Row):
             ),
         )
 
-    def build(self):
-        return Container(
+        # Construir o conteúdo principal
+        self.content = Container(
             expand=True,
-            width=self.page.window_width,
+            # width=self.page.window.width,
+            width=self.page.window.width - 135,
             alignment=alignment.top_center,
-            content=(
-                Column(
-                    expand=True,
-                    alignment="center",
-                    spacing=0,
-                    controls=[
-                        self.plan_path,
-                        Row(
-                            expand=1,
-                            alignment=MainAxisAlignment.CENTER,
-                            controls=[
-                                ElevatedButton(
-                                    "Executar",
-                                    icons.RUN_CIRCLE,
-                                    width=140,
-                                    height=50,
-                                    on_click=lambda _: asyncio.run(
-                                        self.open_folder(self.plan_button.path_name)
-                                    ),
-                                )
-                            ],
-                        ),
-                    ],
-                )
+            content=Column(
+                expand=True,
+                alignment="center",
+                spacing=0,
+                controls=[
+                    self.plan_path,
+                    Row(
+                        expand=1,
+                        alignment=MainAxisAlignment.CENTER,
+                        controls=[
+                            ElevatedButton(
+                                "Executar",
+                                icons.RUN_CIRCLE,
+                                width=140,
+                                height=50,
+                                on_click=lambda _: asyncio.run(
+                                    self.open_folder(self.plan_button.path_name)
+                                ),
+                            )
+                        ],
+                    ),
+                ],
             ),
         )
+
+        # Adicionar o conteúdo como controle do Row
+        self.controls = [self.content]
+        self.expand = True
+        # self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, dlg):
         dlg.open = False

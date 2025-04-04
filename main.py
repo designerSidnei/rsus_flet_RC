@@ -21,8 +21,9 @@ from flet import (
     AlertDialog,
     margin,
     padding,
-    icons,
-    colors,
+    Icons,
+    Colors,
+    SnackBar,
 )
 
 from pages.main_page import MainPage
@@ -43,7 +44,7 @@ class SideBar(Row):
         self,
         page: Page,
         main_page: Row,
-        dicision: Row,
+        decision: Row,
         rename: Row,
         memo: Column,
         other: Row,
@@ -53,7 +54,7 @@ class SideBar(Row):
         super().__init__()
         self.page = page
         self.main_page = main_page
-        self.dicision = dicision
+        self.decision = decision
         self.rename = rename
         self.memo = memo
         self.other = other
@@ -64,32 +65,32 @@ class SideBar(Row):
             NavigationRailDestination(
                 label_content=Text("Página inicial"),
                 label="Página inicial",
-                icon=icons.HOME,
-                selected_icon=icons.HOME_OUTLINED,
+                icon=Icons.HOME,
+                selected_icon=Icons.HOME_OUTLINED,
             ),
             NavigationRailDestination(
                 label_content=Text("Decisão"),
                 label="Decisão",
-                icon=icons.ACCESS_TIME_FILLED,
-                selected_icon=icons.ACCESS_TIME_OUTLINED,
+                icon=Icons.ACCESS_TIME_FILLED,
+                selected_icon=Icons.ACCESS_TIME_OUTLINED,
             ),
             NavigationRailDestination(
                 label_content=Text("Renomear"),
                 label="Renomear",
-                icon=icons.EDIT,
-                selected_icon=icons.EDIT_OUTLINED,
+                icon=Icons.EDIT,
+                selected_icon=Icons.EDIT_OUTLINED,
             ),
             NavigationRailDestination(
                 label_content=Text("Memória"),
                 label="Memória",
-                icon=icons.NUMBERS,
-                selected_icon=icons.NUMBERS_OUTLINED,
+                icon=Icons.NUMBERS,
+                selected_icon=Icons.NUMBERS_OUTLINED,
             ),
             NavigationRailDestination(
                 label_content=Text("Outros"),
                 label="Outros",
-                icon=icons.MORE,
-                selected_icon=icons.MORE_OUTLINED,
+                icon=Icons.MORE,
+                selected_icon=Icons.MORE_OUTLINED,
             ),
         ]
 
@@ -99,29 +100,31 @@ class SideBar(Row):
             label_type=NavigationRailLabelType.ALL,
             on_change=self.mudar_pagina,
             destinations=self.nav_itens,
-            bgcolor=colors.BLACK12,
+            bgcolor=Colors.BLACK12,
             height=310,
         )
 
-    def build(self):
+        # Construir a view imediatamente
         self.view = Container(
             content=Column(
                 controls=[
                     self.nav_rail,
                 ],
-                # tight=True,
                 expand=True,
             ),
             padding=0,
             margin=margin.all(0),
             width=120,
         )
-        return self.view
+        
+        # Adicionar a view como conteúdo do Row
+        self.controls = [self.view]
+        self.expand = True
 
     def set_app_main_bar_pages(self, index):
         pages_list = [
             self.main_page,
-            self.dicision,
+            self.decision,
             self.rename,
             self.memo,
             self.other,
@@ -134,7 +137,6 @@ class SideBar(Row):
 
     def mudar_pagina(self, e):
         index = e if isinstance(e, int) else e.control.selected_index
-        self.view.update()
 
         if index == 0:
             self.page.appbar.title = Text("Página inicial")
@@ -162,13 +164,14 @@ def main(page: Page):
     page.window.resizable = False
     page.window.center()
     page.padding = 0
-    page.bgcolor = colors.BLUE_GREY_900
+    page.bgcolor = Colors.BLUE_GREY_900
 
     page.theme = Theme(color_scheme=ColorScheme(
-        primary=colors.BLUE_400,
-        secondary_container=colors.BLUE_400,
+        primary=Colors.BLUE_400,
+        secondary_container=Colors.BLUE_400,
     ))
 
+    # Inicialização das páginas
     main_page = MainPage(page)
     decision_page = Decisao(page)
     rename_page = Rename(page)
@@ -176,31 +179,6 @@ def main(page: Page):
     others_page = Outros(page)
     info_page = Info(page)
     settings_page = Config(page)
-
-    page.appbar = AppBar(
-        title=Text("Página inicial"),
-        center_title=True,
-        bgcolor=colors.BLACK26,
-        actions=[
-            IconButton(
-                icons.INFO, on_click=lambda _: set_app_bar_pages(info_page)),
-            IconButton(
-                icons.SETTINGS, on_click=lambda _: set_app_bar_pages(
-                    settings_page)
-            ),
-        ],
-    )
-
-    sidebar = SideBar(
-        page=page,
-        main_page=main_page,
-        dicision=decision_page,
-        rename=rename_page,
-        memo=memo_page,
-        other=others_page,
-        info=info_page,
-        settings=settings_page,
-    )
 
     def set_app_bar_pages(current_page: Row):
         if current_page == settings_page:
@@ -218,23 +196,54 @@ def main(page: Page):
         memo_page.visible = False
         others_page.visible = False
         page.update()
-        sidebar.view.update()
+
+    page.appbar = AppBar(
+        title=Text("Página inicial"),
+        center_title=True,
+        bgcolor=Colors.BLACK26,
+        actions=[
+            IconButton(
+                Icons.INFO, on_click=lambda _: set_app_bar_pages(info_page)),
+            IconButton(
+                Icons.SETTINGS, on_click=lambda _: set_app_bar_pages(
+                    settings_page)
+            ),
+        ],
+    )
+
+    sidebar = SideBar(
+        page=page,
+        main_page=main_page,
+        decision=decision_page,
+        rename=rename_page,
+        memo=memo_page,
+        other=others_page,
+        info=info_page,
+        settings=settings_page,
+    )
 
     user_config = Path().joinpath(Path().home(), ".rsus/rsus_app_user.json")
+    
+    # Garantir que o diretório .rsus existe
+    user_config.parent.mkdir(parents=True, exist_ok=True)
 
     def join_click(e):
+        try:
+            new_config = {}
+            with open(user_config, "r", encoding="utf-8") as j:
+                new_config = json.load(j)
+                new_config["usuario"] = user_name.value
 
-        new_config = {}
-        with open(user_config, "r", encoding="utf-8") as j:
-            new_config = json.load(j)
-            new_config["usuario"] = user_name.value
+            with open(user_config, "w", encoding="utf-8") as j:
+                json.dump(new_config, j, indent=2, ensure_ascii=False)
 
-        with open(user_config, "w", encoding="utf-8") as j:
-            json.dump(new_config, j, indent=2, ensure_ascii=False)
-
-        name_dialog.open = False
-        main_page.updater()
-        page.update()
+            name_dialog.open = False
+            main_page.updater()
+            page.update()
+        except Exception as e:
+            page.show_snack_bar(
+                SnackBar(content=Text(f"Erro ao salvar configuração: {str(e)}"))
+            )
 
     user_name = TextField(label="Digite seu nome de usuário")
     name_dialog = AlertDialog(
@@ -245,20 +254,32 @@ def main(page: Page):
         actions=[ElevatedButton(text="Confirmar", on_click=join_click)],
     )
 
-    config = {}
-    with open(user_config, "r", encoding="utf-8") as j:
-        config = json.load(j)
+    # Carregar configuração do usuário
+    try:
+        if not user_config.exists():
+            with open(user_config, "w", encoding="utf-8") as j:
+                json.dump({"usuario": ""}, j, indent=2, ensure_ascii=False)
+        
+        with open(user_config, "r", encoding="utf-8") as j:
+            config = json.load(j)
 
-    if config["usuario"] == "":
+        if config.get("usuario", "") == "":
+            page.overlay.append(name_dialog)
+    except Exception as e:
+        page.show_snack_bar(
+            SnackBar(content=Text(f"Erro ao carregar configuração: {str(e)}"))
+        )
+        config = {"usuario": ""}
         page.overlay.append(name_dialog)
 
+    # Criar a estrutura principal da aplicação
     app_win = Row(
         spacing=0,
         controls=[
             sidebar,
             Container(
                 content=Row(
-                    [
+                    controls=[
                         main_page,
                         decision_page,
                         rename_page,
@@ -270,13 +291,17 @@ def main(page: Page):
                     alignment=MainAxisAlignment.CENTER,
                 ),
                 padding=padding.symmetric(vertical=25),
-                expand=True,
+                # expand=True,
             ),
         ],
         expand=True,
     )
-    page.horizontal_alignment = CrossAxisAlignment.CENTER
+
+    # Adicionar a estrutura principal à página
+    # page.horizontal_alignment = CrossAxisAlignment.CENTER
     page.add(app_win)
+
+    # Atualizar a página inicialmente
     page.update()
 
 

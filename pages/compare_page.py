@@ -84,10 +84,11 @@ class Batimento(Row):
             ),
         )
 
-    def build(self):
-        return Container(
+        # Construir o conteúdo principal
+        self.content = Container(
             expand=True,
-            width=self.page.window.width,
+            # width=self.page.window.width,
+            width=self.page.window.width - 135,
             alignment=alignment.center,
             padding=10,
             content=Column(
@@ -96,6 +97,11 @@ class Batimento(Row):
                 controls=[self.plan_path, self.batimento_data],
             ),
         )
+
+        # Adicionar o conteúdo como controle do Row
+        self.controls = [self.content]
+        self.expand = True
+        # self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, e):
         self.dlg.open = False

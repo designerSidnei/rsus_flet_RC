@@ -3,6 +3,7 @@ from flet import (
     Row,
     Tabs,
     Tab,
+    MainAxisAlignment,
 )
 from pages.compare_page import Batimento
 from pages.open_folder_page import AbrirPasta
@@ -18,11 +19,14 @@ class Outros(Row):
         self.open_page = Tab(text="Abrir pasta", content=AbrirPasta(page))
         self.move_pdf_page = Tab(text="Mover PDF", content=MoverPDF(page))
 
-        self.tab = Tabs(
+        # Construir o conteúdo principal
+        self.content = Tabs(
             tabs=[self.compare_page, self.open_page, self.move_pdf_page],
             selected_index=0,
-            width=self.page.window_width - 130,
+            width=self.page.window.width - 135,
         )
 
-    def build(self):
-        return self.tab
+        # Adicionar o conteúdo como controle do Row
+        self.controls = [self.content]
+        self.expand = True
+        # self.alignment = MainAxisAlignment.CENTER

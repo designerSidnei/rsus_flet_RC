@@ -57,10 +57,11 @@ class MoverPDF(Row):
             ),
         )
 
-    def build(self):
-        return Container(
+        # Construir o conteúdo principal
+        self.content = Container(
             expand=True,
-            width=self.page.window_width,
+            # width=self.page.window.width,
+            width=self.page.window.width - 135,
             alignment=alignment.center,
             content=Column(
                 expand=True,
@@ -89,6 +90,11 @@ class MoverPDF(Row):
                 ],
             ),
         )
+
+        # Adicionar o conteúdo como controle do Row
+        self.controls = [self.content]
+        self.expand = True
+        # self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, dlg):
         dlg.open = False

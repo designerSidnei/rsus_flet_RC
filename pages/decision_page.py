@@ -9,6 +9,7 @@ from flet import (
     icons,
     Column,
     Row,
+    Container,
     ElevatedButton,
 )
 
@@ -37,15 +38,15 @@ class Decisao(Row):
         )
         self.visible = False
 
-    def build(self):
-        return Column(
-            [
+        # Construir o conteúdo principal
+        self.content = Column(
+            controls=[
                 Row(
-                    [self.planilha, self.plan_button],
+                    controls=[self.planilha, self.plan_button],
                     alignment="center",
                 ),
                 Row(
-                    [self.dados, self.dados_button],
+                    controls=[self.dados, self.dados_button],
                     alignment="center",
                 ),
                 ElevatedButton(
@@ -59,8 +60,20 @@ class Decisao(Row):
                     ),
                 ),
             ],
+            expand=True,
+            width=self.page.window.width - 135,
             horizontal_alignment=CrossAxisAlignment.CENTER,
         )
+
+        # Adicionar o conteúdo como controle do Row
+        self.controls = [
+            Container(
+                expand=True,
+                content=self.content
+            )
+        ]
+        self.expand = True
+        self.alignment = MainAxisAlignment.CENTER
 
     def close_dlg(self, dlg):
         dlg.open = False

@@ -87,7 +87,7 @@ async def mainn(path_plan, path_dados):
     is_none = [atendimento, competencia, tipo_procedimento]
     if any([item is None for item in is_none]):
         not_coluna = ("do atendimento" if atendimento is None
-                      else "da competencia" if competencia is None
+                      else "da competência" if competencia is None
                       else "do tipo de procedimento (Principal/Secundário"
                       )
         return f"Coluna {not_coluna} não encontrada!"

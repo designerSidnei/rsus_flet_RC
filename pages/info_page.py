@@ -20,10 +20,11 @@ class Info(Column):
         self.visible = False
         self.text: dict[str, str] = {}
 
-    def build(self):
+        # Carregar o arquivo de informações
         with open("./dados/info.json", "r", encoding="utf-8") as j:
             self.text = json.load(j)
 
+        # Construir o layout de informações
         info_layout = Container(
             expand=True,
             content=Column(
@@ -114,9 +115,16 @@ class Info(Column):
             ),
         )
 
-        return Column(
+        # Construir o conteúdo principal
+        self.content = Column(
             expand=True,
-            width=660,
+            # width=660,
+            width=self.page.window.width - 135,
             horizontal_alignment=CrossAxisAlignment.CENTER,
             controls=[info_layout],
         )
+
+        # Adicionar o conteúdo como controle do Column
+        self.controls = [self.content]
+        self.expand = True
+        # self.alignment = MainAxisAlignment.CENTER

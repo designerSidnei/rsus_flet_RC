@@ -1,9 +1,8 @@
-from flet import (
-    UserControl, icons, TextField, FilePicker, FilePickerFileType, FilePickerResultEvent, ElevatedButton
+from flet import (Row, icons, TextField, FilePicker, FilePickerFileType, FilePickerResultEvent, ElevatedButton
 )
 
 
-class Buttons(UserControl):
+class Buttons(Row):
     def __init__(self, button_text: str, button_icon: icons, path_text_field: TextField, file_type: list):
         super().__init__()
         self.file_picker = FilePicker(on_result=self.pick_files_result)
@@ -49,7 +48,7 @@ class Buttons(UserControl):
             print(self.path_name)
 
 
-class DirButton(UserControl):
+class DirButton(Row):
     def __init__(self, button_text: str, button_icon: icons, path_text_field: TextField):
         super().__init__()
         self.folder_picker = FilePicker(on_result=self.pick_files_result)
