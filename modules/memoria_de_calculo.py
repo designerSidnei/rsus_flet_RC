@@ -5,7 +5,7 @@ import os
 import shutil
 
 import pandas as pd
-import pywintypes
+# import pywintypes
 import xlwings as xw
 
 from openpyxl.styles import PatternFill, Border, Side, Font, colors, Alignment
@@ -263,12 +263,14 @@ async def process_rows(df, planilha_path):
             xw_pdf = xw_book.sheets[0]
             try:
                 xw_pdf.to_pdf(planilha_pdf)
-            except pywintypes.com_error:
+                # except pywintypes.com_error:
+                #     xw_book.close()
+                #     app.kill()
+                #     return (f"O documento não foi salvo. Talvez esteja aberto ou pode ter ocorrido um erro "
+                #             "durante a gravação.")
+            except Exception as e:
                 xw_book.close()
                 app.kill()
-                return (f"O documento não foi salvo. Talvez esteja aberto ou pode ter ocorrido um erro "
-                        "durante a gravação.")
-            except Exception as e:
                 return f"Erro ao salvar pdf: {e}"
 
             xw_book.close()
