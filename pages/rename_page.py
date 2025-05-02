@@ -147,6 +147,9 @@ class Rename(Row):
         self.list_path_files = selected_path_files.split(",")
 
         if self.list_files:
+            if len(self.list_view_files.controls) > 0:
+                self.list_view_files.clean()                
+
             for item in self.list_files:
                 self.list_view_files.controls.append(Text(item))
             self.list_view_files.update()
